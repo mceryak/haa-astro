@@ -1,8 +1,8 @@
 import type { APIContext } from "astro";
 
 export async function GET({ locals, params, request }: APIContext) {
-  const { "haa-astro-HAA_KV": KV } = locals.runtime.env;
-  const value = KV.get('test');
+  const { HAA_KV } = locals.runtime.env;
+  const value = HAA_KV.get('test');
   return new Response(
     JSON.stringify({
       name: 'Astro',
