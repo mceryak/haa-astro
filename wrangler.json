@@ -15,7 +15,7 @@
   },
   "kv_namespaces": [
     {
-      "binding": "HAA_KV",
+      "binding": "haa-astro-HAA_KV",
       "id": "849d1a6b3e454c79a70f2e5b415ff836"
     }
   ]
