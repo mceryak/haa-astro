@@ -1,11 +1,19 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Welcome from "../components/Welcome.astro";
+import Layout from "../layouts/Layout.astro";
 
+import { drizzle } from "drizzle-orm/d1";
+import { homes } from "../../schemas/drizzle";
 
+const { DB } = Astro.locals.runtime.env;
 
+const driz = drizzle(DB);
+
+const homesData = await driz.select().from(homes).all();
+
+console.log(homesData);
 ---
 
 <Layout>
-	<Welcome />
+  <Welcome />
 </Layout>

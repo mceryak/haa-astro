@@ -18,6 +18,13 @@
       "binding": "HAA_KV",
       "id": "849d1a6b3e454c79a70f2e5b415ff836"
     }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "ddc42abe-6758-4510-83c4-88c9af9a8b05",
+      "database_name": "haa"
+    }
   ]
   /**
    * Smart Placement

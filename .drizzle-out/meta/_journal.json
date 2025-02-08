@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1738951482623,
+      "tag": "0000_stormy_fabian_cortez",
+      "breakpoints": true
+    }
+  ]
+}
