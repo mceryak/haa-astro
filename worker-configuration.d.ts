@@ -2,4 +2,5 @@
 
 interface Env {
 	HAA_KV: KVNamespace;
+	DB: D1Database;
 }

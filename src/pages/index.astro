@@ -8,10 +8,12 @@ import { homes } from "../../schemas/drizzle";
 const { DB } = Astro.locals.runtime.env;
 
 const driz = drizzle(DB);
+console.log(DB.prepare('Select * from Homes').all());
 
 const homesData = await driz.select().from(homes).all();
 
 console.log(homesData);
+// export const prerender = false;
 ---
 
 <Layout>
