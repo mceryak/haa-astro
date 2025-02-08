@@ -1,21 +1,23 @@
 ---
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 
-import { drizzle } from "drizzle-orm/d1";
-import { homes } from "../../schemas/drizzle";
+// import { drizzle } from "drizzle-orm/d1";
+// import { homes } from "../../schemas/drizzle";
 
-const { DB } = Astro.locals.runtime.env;
+let officeData = await fetch("https://theofficeapi.dev/api/character/62");
+let dataJson = await officeData.json();
 
-const driz = drizzle(DB);
-console.log(DB.prepare('Select * from Homes').all());
+// const { DB } = Astro.locals.runtime.env;
 
-const homesData = await driz.select().from(homes).all();
+// const driz = drizzle(DB);
+// console.log(DB.prepare('Select * from Homes').all());
 
-console.log(homesData);
+// const homesData = await driz.select().from(homes).all();
+
+// console.log(homesData);
 // export const prerender = false;
 ---
 
 <Layout>
-  {JSON.stringify(homesData)}
+  {JSON.stringify(dataJson)}
 </Layout>
