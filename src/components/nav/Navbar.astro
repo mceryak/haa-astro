@@ -1,0 +1,31 @@
+---
+import "../../styles/global.css";
+
+import Logo from "../../assets/images/logo.webp";
+import Image from "astro/components/Image.astro";
+import MobileMenu from "./MobileMenu.astro";
+import MenuItem from "./MenuItem.astro";
+import Submenu from "./Submenu.astro";
+import SubMenuItem from "./SubMenuItem.astro";
+---
+
+<nav
+  class="sticky top-0 bg-gradient-to-b from-sky-800 to-sky-600 flex gap-2 text-zinc-200 font-bold"
+>
+  <Image src={Logo} alt="logo" width={100} />
+  <div class="md:hidden">
+    <MobileMenu />
+  </div>
+
+  <div class="hidden md:flex">
+    <MenuItem label="Shop">
+      <Submenu>
+        <SubMenuItem label="Modular Homes" path="/homes" />
+        <SubMenuItem label="Manufactured Homes" path="/homes" />
+        <SubMenuItem label="Tiny Homes" path="/homes" />
+        <SubMenuItem label="Carports" path="/homes" />
+      </Submenu>
+    </MenuItem>
+    <MenuItem label="Services" path="/services" />
+  </div>
+</nav>
