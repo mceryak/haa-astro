@@ -1,0 +1,18 @@
+---
+const { path, label, isDropdown=false, isLastItem=false } = Astro.props;
+
+const highlightClass = isDropdown ? "bg-white/5" : "";
+const hoverHighlightClass = isDropdown ? 'hover:bg-white/15' : 'hover:bg-white/10';
+const borderClass = isDropdown ? "border-t-2 border-t-white/5 md:border-t-white/50" : "";
+const indentClass = isDropdown ? "pl-4 md:pl-2" : "";
+---
+
+<li>
+  <a
+    href={path}
+    class=`flex no-underline ${indentClass}  p-4  ${borderClass} ${highlightClass} ${hoverHighlightClass}`
+    >
+    <span class={indentClass}>{label}</span>
+    </a
+  >
+</li>

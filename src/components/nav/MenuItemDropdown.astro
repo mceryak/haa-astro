@@ -1,0 +1,40 @@
+---
+import { Icon } from "astro-icon/components";
+import MenuItemLink from "./MenuItemLink.astro";
+
+const { label } = Astro.props;
+---
+
+<li class="relative">
+  <dropdown-button-container data-label={label}>
+    <!-- defined in navbar script -->
+    <button
+      class="cursor-pointer p-4 pr-2 hover:bg-white/10 w-full"
+      id=`dropdown-btn-${label}`
+    >
+      <div class="flex items-center gap-1">
+        {label}
+        <Icon
+          name="mdi:chevron-down"
+          id=`dropdown-icon-${label}`
+          class="transition-all"
+        />
+      </div>
+    </button>
+  </dropdown-button-container>
+
+  <div id={`dropdown-list-${label}`} class="hidden">
+    <!-- <Icon
+      name="mdi:triangle"
+      class="md:absolute md:top-full md:right-[40%] text-sky-800"
+    /> -->
+    <ul
+      class="list-none transition-all md:absolute md:top-full shadow-2xl whitespace-nowrap right-0 rounded-b-lg  md:bg-sky-800"
+    >
+      <MenuItemLink label="Manufactured Homes" path="/homes" isDropdown />
+      <MenuItemLink label="Modular Homes" path="/homes"   isDropdown />
+      <MenuItemLink label="Tiny Homes" path="/homes"   isDropdown />
+      <MenuItemLink label="Carports" path="/carports"   isDropdown isLastItem/>
+    </ul>
+  </div>
+</li>

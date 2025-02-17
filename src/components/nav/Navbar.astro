@@ -2,30 +2,144 @@
 import "../../styles/global.css";
 
 import Logo from "../../assets/images/logo.webp";
-import Image from "astro/components/Image.astro";
-import MobileMenu from "./MobileMenu.astro";
-import MenuItem from "./MenuItem.astro";
-import Submenu from "./Submenu.astro";
-import SubMenuItem from "./SubMenuItem.astro";
+import { Icon } from "astro-icon/components";
+import MenuItemLink from "./MenuItemLink.astro";
+import MenuItemDropdown from "./MenuItemDropdown.astro";
+
+// const menuItems:  = [
+
+// ]
 ---
 
-<nav
-  class="sticky top-0 bg-gradient-to-b from-sky-800 to-sky-600 flex gap-2 text-zinc-200 font-bold"
+<a
+  href="#main-content"
+  class="hidden md:block z-30 opacity-0 focus:opacity-100 p-2 bg-sky-800 text-white text-2xl rounded-2xl absolute top-4 left-4 transition-opacity ease-in-out no-underline pointer-events-none focus:pointer-events-auto outline-white outline-2"
+  >Skip to main content</a
 >
-  <Image src={Logo} alt="logo" width={100} />
-  <div class="md:hidden">
-    <MobileMenu />
-  </div>
 
-  <div class="hidden md:flex">
-    <MenuItem label="Shop">
-      <Submenu>
-        <SubMenuItem label="Modular Homes" path="/homes" />
-        <SubMenuItem label="Manufactured Homes" path="/homes" />
-        <SubMenuItem label="Tiny Homes" path="/homes" />
-        <SubMenuItem label="Carports" path="/homes" />
-      </Submenu>
-    </MenuItem>
-    <MenuItem label="Services" path="/services" />
-  </div>
+<button
+  class="block md:hidden p-1 ml-auto cursor-pointer text-2xl"
+  id="open-sidebar-button"
+  onclick="openSidebar()"
+  aria-label="open menu"
+  aria-expanded="false"
+  aria-controls="navbar"
+>
+  <Icon name="mdi:hamburger-menu" />
+</button>
+<nav
+  id="navbar"
+  inert
+  aria-label="Main Menu"
+  class="z-20 fixed md:sticky top-0 -right-full transition-all ease-in-out h-full md:h-auto w-[min(15em,100%)] md:w-full border-l-2 border-l-black/50 bg-gradient-to-b from-sky-950 to-sky-800 text-zinc-200 font-semibold"
+>
+  <ul class="flex flex-col md:flex-row justify-between list-none md:px-8">
+    <li class="ml-auto md:hidden">
+      <button
+        id="close-sidebar-button"
+        class="p-1 cursor-pointer text-2xl"
+        onclick="closeSidebar()"
+        aria-label="close menu"
+      >
+        <Icon name="mdi:close" />
+      </button>
+    </li>
+
+    <a class="hidden md:block cursor-pointer" href="/">
+      <img src="/images/logo1.png" width="200" alt="Home" />
+    </a>
+    <span class="md:hidden">
+      <MenuItemLink path="/" label="Home" class="mr-auto" aria-current="page" />
+    </span>
+    <div class="flex flex-col md:flex-row">
+      <MenuItemLink path="/services" label="Services" class="ml-auto" />
+      <MenuItemDropdown client:load label="Shop" />
+      <!-- <MenuItemDropdown client:load label="Other Dropdown" /> -->
+      <MenuItemLink path="/about" label="About" />
+    </div>
+  </ul>
 </nav>
+
+<div
+  id="overlay"
+  class="hidden bg-black/30 fixed inset-0 z-10"
+  onclick="closeSidebar()"
+  aria-hidden="true"
+>
+</div>
+
+<script defer>
+  const navbar = document.getElementById("navbar");
+  const overlay = document.getElementById("overlay");
+  const openSidebarButton = document.getElementById("open-sidebar-button");
+  const media = window.matchMedia("(width < 48rem)"); // 48rem is tailwind threshold
+
+  if (!media.matches) {
+    navbar.removeAttribute("inert");
+  }
+
+  media.addEventListener("change", (e) => {
+    console.log("media change");
+    const isMobile = e.matches;
+    if (isMobile) {
+      if (!navbar.classList.contains('right-0')) {
+        navbar.setAttribute("inert", "");
+      }
+    } else {
+      if (!overlay.classList.contains('hidden')) {
+        overlay.classList.add('hidden');
+      }
+      navbar.removeAttribute("inert");
+    }
+  });
+
+  function openSidebar() {
+    navbar.classList.add("right-0");
+    navbar.removeAttribute("inert");
+    overlay.classList.remove("hidden");
+    openSidebarButton.setAttribute("aria-expanded", true);
+  }
+  function closeSidebar() {
+    navbar.classList.remove("right-0");
+    navbar.setAttribute("inert", "");
+    overlay.classList.add("hidden");
+    openSidebarButton.setAttribute("aria-expanded", false);
+  }
+
+  class DropdownButtonContainer extends HTMLElement {
+    connectedCallback() {
+      // Read the message from the data attribute.
+      const { label } = this.dataset;
+      const button = this.querySelector("button");
+      
+      const listId = (label) => `dropdown-list-${label}`;
+      const iconId = (label) => `dropdown-icon-${label}`;
+      const btnId = (label) => `dropdown-btn-${label}`;
+
+      button?.addEventListener("click", () => {
+        const listElem = document.getElementById(listId(label));
+        const iconElem = document.getElementById(iconId(label));
+        const btnElem = document.getElementById(btnId(label));
+
+        const isHidden = listElem?.classList.contains("hidden");
+
+        // close all dropdowns
+        const allLists = document.querySelectorAll("[id^='dropdown-list-']");
+        const allIcons = document.querySelectorAll("[id^='dropdown-icon-']");
+        const allBtns = document.querySelectorAll("[id^='dropdown-btn-']");
+        allLists.forEach((d) => d.classList.add("hidden"));
+        allIcons.forEach(i => i.classList.remove('-rotate-180'));
+        allBtns.forEach(b => b.classList.remove('bg-white/5'));
+
+        if (isHidden) {
+          listElem?.classList.remove("hidden");
+          iconElem.classList.add("-rotate-180");
+          btnElem.classList.add('bg-white/5');
+          // iconElem.classList.add('rotate-180');
+        }
+      });
+    }
+  }
+
+  customElements.define("dropdown-button-container", DropdownButtonContainer);
+</script>
