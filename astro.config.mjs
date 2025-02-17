@@ -1,17 +1,21 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 
 import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from "@tailwindcss/vite";
 
 import react from "@astrojs/react";
 
+import icon from 'astro-icon';
+
 // https://astro.build/config
 export default defineConfig({
   output: "static",
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss()
+    ],
     resolve: {
       // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
       // Without this, MessageChannel from node:worker_threads needs to be polyfilled.
@@ -27,5 +31,5 @@ export default defineConfig({
     }
   }),
 
-  integrations: [react()]
+  integrations: [react(), icon()]
 });

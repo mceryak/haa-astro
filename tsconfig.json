@@ -11,6 +11,10 @@
     "types": [
       "@cloudflare/workers-types/2023-07-01"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": ["src/lib/*"]
+    },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }

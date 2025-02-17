@@ -5,11 +5,11 @@ import MenuItemLink from "./MenuItemLink.astro";
 const { label, submenuItems } = Astro.props;
 ---
 
-<li class="relative">
+<li class="relative group">
   <!-- defined in navbar script -->
   <dropdown-button-container data-label={label}>
     <button
-      class="cursor-pointer p-4 lg:p-6 pr-2 hover:bg-white/10 w-full"
+      class="cursor-pointer p-4 lg:py-6 pr-2 hover:bg-white/10 w-full"
       id=`dropdown-btn-${label}`
       aria-controls=`dropdown-list-${label}`
     >
@@ -24,7 +24,7 @@ const { label, submenuItems } = Astro.props;
     </button>
   </dropdown-button-container>
 
-  <div id={`dropdown-list-${label}`} class="hidden">
+  <div id={`dropdown-list-${label}`} class="hidden lg:group-hover:block">
     <ul
       class="list-none transition-all lg:absolute lg:top-full shadow-2xl whitespace-nowrap left-0 rounded-b-lg lg:bg-sky-800"
     >

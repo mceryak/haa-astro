@@ -2,7 +2,7 @@
 const { path, label, isDropdown=false, isLastItem=false } = Astro.props;
 
 const highlightClass = isDropdown ? "bg-white/5" : "";
-const paddingClass = isDropdown ? "p-4" : "p-4 lg:p-6";
+const paddingClass = isDropdown ? "p-4" : "p-4 lg:py-6";
 const hoverHighlightClass = isDropdown ? 'hover:bg-white/15' : 'hover:bg-white/10';
 const borderClass = isDropdown ? "border-b-1 border-b-white/5 lg:border-b-white/20" : "";
 const indentClass = isDropdown ? "pl-4 lg:pl-2" : "";
