@@ -1,0 +1,11 @@
+---
+import ProfileButton from "./ProfileButton.astro";
+import ProfileIcon from "../icons/ProfileIcon.astro";
+---
+
+<ProfileButton server:defer>
+  <div class="flex gap-2" slot="fallback">
+    <ProfileIcon />
+    <span class="w-15"></span>
+  </div>
+</ProfileButton>

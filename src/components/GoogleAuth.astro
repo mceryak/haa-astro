@@ -1,0 +1,14 @@
+<!-- ---
+import { supabase } from "@lib/supabase";
+
+export const prerender = false;
+
+// check if there's already an existing session before initializing the one-tap UI
+const { data, error } = await supabase.auth.getSession()
+if (error) {
+  console.error('Error getting session', error)
+}
+if (data.session) {
+  return redirect('/');
+}
+--- -->

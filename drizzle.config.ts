@@ -6,9 +6,9 @@ const config: Config = {
   dialect: 'sqlite',
   driver: 'd1-http',
   dbCredentials: {
-    accountId: 'a78302cdcde46ce73a37e339f7be75d4',
-    databaseId: 'ddc42abe-6758-4510-83c4-88c9af9a8b05',
-    token: 'kz5jlQxPH8w905XKpR7rnKPfAfzYI5lEyA2esmWv'
+    accountId: process.env.D1_ACCOUNT_ID!,
+    databaseId: process.env.D1_ID!,
+    token: process.env.D1_TOKEN!
   }
 };
 

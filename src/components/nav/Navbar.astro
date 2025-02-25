@@ -5,6 +5,14 @@ import Logo from "../../assets/images/logo.webp";
 import { Icon } from "astro-icon/components";
 import MenuItemLink from "./MenuItemLink.astro";
 import MenuItemDropdown from "./MenuItemDropdown.astro";
+// import GoogleSignIn from "../GoogleSignIn.astro";
+// import GSignInButton from "../auth/GSignInButton";
+// import GSignOutButton from "../auth/SignOutButtonClient";
+// import SignOutButton from "../SignOutButton.astro";
+import SignInButton from "../auth/SignInButton.astro";
+import SignOutButton from "../auth/SignOutButton.astro";
+import ProfileButton from "./ProfileButton.astro";
+import ProfileButtonIsland from "./ProfileButtonIsland.astro";
 
 const menuItems = [
   {
@@ -20,13 +28,13 @@ const menuItems = [
   { label: "Finance", path: "/finance" },
   { label: "FAQ", path: "/faq" },
   { label: "About", path: "/about" },
-  // { label: "Contact", path: "/contact" },
+  { label: "Contact", path: "/contact" },
 ];
 ---
 
 <a href="tel:3176916790" aria-label="Call us at 333-333-3333">
   <div
-    class="flex items-center gap-2 justify-center p-1 bg-sky-950 border-b-1 border-b-white/20 text-zinc-200"
+    class="flex items-center gap-2 justify-center p-1 bg-sky-950 border-b-1 border-b-white/20 text-zinc-200 hover:bg-sky-700 transition-colors"
   >
     <Icon name="mdi:phone" />
     333-333-3333
@@ -86,7 +94,7 @@ const menuItems = [
     <span class="lg:hidden">
       <MenuItemLink path="/" label="Home" class="mr-auto" aria-current="page" />
     </span>
-    <div class="flex flex-col lg:flex-row">
+    <div class="flex flex-col lg:flex-row items-center">
       {
         menuItems.map((item) =>
           item.path ? (
@@ -98,17 +106,27 @@ const menuItems = [
       }
     </div>
 
-    <div class="hidden lg:flex items-center gap-3 whitespace-nowrap">
-      <a href="tel:3176916790" class="p-2 border-2 rounded-3xl hover:bg-white/5  transition-colors">
+    <div class="hidden lg:flex items-center whitespace-nowrap">
+      <!-- <a
+        href="tel:3176916790"
+        class="p-2 border-2 rounded-3xl hover:bg-white/5 transition-colors"
+      >
         <div class="flex items-center gap-2">
-          <!-- <Icon name="mdi:phone" /> -->
           Contact
         </div>
-      </a>
-      <button class="cursor-pointer">
-        <!-- <Icon name="mdi:account" class="" aria-label="Profile"/> -->
-        Sign In
-      </button>
+      </a> -->
+      
+      <ProfileButtonIsland />
+      <!-- <button class="cursor-pointer" aria-label="Profile">
+        <Icon name="mdi:account" class="text-3xl" />
+      </button> -->
+      <!-- <SignInButton server:defer >
+        <div slot="fallback" class="w-1 opacity-0"></div>
+      </SignInButton>
+      <SignOutButton server:defer /> -->
+      <!-- <GSignInButton />
+      <SignOutButtonClient /> -->
+      
     </div>
   </ul>
 </nav>

@@ -2,19 +2,20 @@
 import { Icon } from "astro-icon/components";
 import MenuItemLink from "./MenuItemLink.astro";
 
-const { label, submenuItems } = Astro.props;
+const { label, iconName, align="left", submenuItems } = Astro.props;
 ---
 
 <li class="relative group">
   <!-- defined in navbar script -->
   <dropdown-button-container data-label={label}>
     <button
-      class="cursor-pointer p-4 lg:py-6 pr-2 hover:bg-white/10 w-full"
+      class="cursor-pointer h-full p-4 lg:py-6 pr-2 hover:bg-white/10 w-full"
       id=`dropdown-btn-${label}`
       aria-controls=`dropdown-list-${label}`
     >
       <div class="flex items-center gap-1">
         {label}
+        {iconName &&  <Icon name={iconName} class="text-3xl"/>}
         <Icon
           name="mdi:chevron-down"
           id=`dropdown-icon-${label}`
@@ -24,13 +25,13 @@ const { label, submenuItems } = Astro.props;
     </button>
   </dropdown-button-container>
 
-  <div id={`dropdown-list-${label}`} class="hidden lg:group-hover:block">
+  <div id={`dropdown-list-${label}`} class="hidden  lg:group-hover:block">
     <ul
-      class="list-none transition-all lg:absolute lg:top-full shadow-2xl whitespace-nowrap left-0 rounded-b-lg lg:bg-sky-800"
+      class=`list-none transition-all lg:absolute lg:top-full  whitespace-nowrap ${align}-0 rounded-b-lg lg:bg-sky-800`
     >
       {
-        submenuItems.map((item) => (
-          <MenuItemLink label={item.label} path={item.path} isDropdown />
+        submenuItems.map((item, idx) => (
+          <MenuItemLink label={item.label} path={item.path} isDropdown isLastItem={idx === submenuItems.length - 1} />
         ))
       }
     </ul>
