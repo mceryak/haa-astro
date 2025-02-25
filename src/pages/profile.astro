@@ -1,0 +1,30 @@
+---
+import SignOutButtonClient from "@/components/auth/SignOutButton";
+import Layout from "../layouts/Layout.astro";
+export const prerender = false;
+// import { UserCard } from "@/components/user-card";
+
+// const session = () => {
+//   if (Astro.locals.session) {
+//     return Astro.locals.session;
+//   } else {
+//     // Redirect to login page if the user is not authenticated
+//     return Astro.redirect("/login");
+//   }
+// };
+
+// console.log(Astro.cookies.headers());
+
+const { session, user } = Astro.locals;
+if (!session) {
+  console.log('no session1');
+  return Astro.redirect("/");
+}
+---
+
+<!-- <UserCard initialSession={session} /> -->
+<Layout title="dashboard">
+  <h1>Welcome {user?.name}</h1>
+  <p>We are happy to see you here</p>
+  <SignOutButtonClient client:load />
+</Layout>

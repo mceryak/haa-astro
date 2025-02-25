@@ -1,13 +1,64 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
 
-const response = await fetch("https://d1-http.mceryak.workers.dev/homes");
-const homes = await response.json();
+// const response = await fetch("https://d1-http.mceryak.workers.dev/homes");
+// const homes = await response.json();
 ---
 
 <Layout>
-  <img
+  <!-- <img
     src="https://michaelceryak.com/cdn-cgi/image/width=80,quality=75/https://cdn.michaelceryak.com/image/r2Image1.png"
-  />
+  /> -->
+  <div
+    class="relative w-full h-[500px] object-cover bg-[url(/images/hero-temp.jpg)]"
+  >
+    <div class="absolute top-0 left-0 w-full h-full bg-black/50">
+      <div
+        class="p-4 rounded-3xl bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-2 items-center justify-center"
+      >
+        <div class="border-2 border-gray-300 rounded-4xl p-2 h-full">
+          <select name="beds" id="beds-select">
+            <option value="1">Modular</option>
+            <option value="2">Manufactured</option>
+          </select>
+        </div>
+        <div class="border-2 border-gray-300 rounded-4xl p-2">
+          <select name="beds" id="beds-select">
+            <option value="1">900 - 1200 sqft</option>
+            <option value="1">1200 - 1500 sqft</option>
+          </select>
+        </div>
+        <div class="border-2 border-gray-300 rounded-4xl p-2">
+          <select name="beds" id="beds-select">
+            <option value="1">1 Bed</option>
+            <option value="2">2 Beds</option>
+            <option value="3">3 Beds</option>
+            <option value="4">4 Beds</option>
+          </select>
+        </div>
+        <div class="border-2 border-gray-300 rounded-4xl p-2 h-full">
+          <select name="beds" id="beds-select">
+            <option value="1">1 Bath</option>
+            <option value="2">2 Baths</option>
+            <option value="3">3 Baths</option>
+            <option value="4">4 Baths</option>
+          </select>
+        </div>
+        <!-- <input class="border-2 border-gray-300 rounded-4xl cursor-auto p-2 w-88" type="text"/> -->
+        <button
+          class="cursor-pointer bg-sky-800 rounded-3xl hover:scale-110 transition-transform"
+        >
+          <Icon name="mdi:search" class="w-11 h-11 text-zinc-200 p-2" />
+        </button>
+      </div>
+    </div>
+
+    <!-- <div class=" w-full h-[500px] absolute bg-black/50"></div> -->
+    <!-- <img
+      src="/images/hero-temp.jpg"
+      class="z-10 w-full h-[500px] object-cover"
+    /> -->
+  </div>
   <!-- {JSON.stringify(homes)} -->
 </Layout>
