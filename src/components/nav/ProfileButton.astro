@@ -1,18 +1,18 @@
 ---
 export const prerender = false;
-import ProfileIcon from "../icons/ProfileIcon.astro";
+// import ProfileIcon from "../icons/ProfileIcon.astro";
 
-const { session } = Astro.locals;
-const hasSession = !!session;
-const label = hasSession ? 'Profile' : 'Sign In';
+// const { session } = Astro.locals;
+// const hasSession = !!session;
+// const label = hasSession ? 'Profile' : 'Sign In';
 ---
 
-
-<button id={label}  class=" cursor-pointer hover:scale-110 transition-transform" aria-label={label}>
+<div>island test</div>
+<!-- <button id={label}  class=" cursor-pointer hover:scale-110 transition-transform" aria-label={label}>
   <a href={hasSession ? '/profile' : '/sign-in'}>
     <div class="flex gap-2 items-center">
         <ProfileIcon />
         <label class="cursor-pointer hidden w-15 lg:block">{label}</label>
       </div>
     </a>
-  </button>
+  </button> -->
