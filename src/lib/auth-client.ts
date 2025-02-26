@@ -3,9 +3,11 @@ export const { signIn, signUp, getSession, useSession, listSessions, signOut } =
   baseURL: "https://michaelceryak.com"
 });
 
-export const socialSignIn = async (providerId: 'google' | 'facebook') => {
+export type SocialProvider = "github" | "apple" | "discord" | "facebook" | "microsoft" | "google" | "spotify" | "twitch" | "twitter" | "dropbox" | "linkedin" | "gitlab" | "reddit";
+
+export const socialSignIn = async (providerId: SocialProvider) => {
   const data = await signIn.social({
     provider: providerId,
-    callbackURL: "/profile"
+    callbackURL: "/sign-in" // callback to sign in so that it's forced to reload (it will redirect to profile)
   })
 }

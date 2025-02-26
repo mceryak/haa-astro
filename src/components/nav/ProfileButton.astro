@@ -1,18 +1,34 @@
 ---
 export const prerender = false;
-// import ProfileIcon from "../icons/ProfileIcon.astro";
+import ProfileIcon from "../icons/ProfileIcon.astro";
 
-// const { session } = Astro.locals;
-// const hasSession = !!session;
-// const label = hasSession ? 'Profile' : 'Sign In';
+const { session } = Astro.locals;
+const hasSession = !!session;
+const label = hasSession ? "Profile" : "Sign In";
 ---
 
-<div>island test</div>
-<!-- <button id={label}  class=" cursor-pointer hover:scale-110 transition-transform" aria-label={label}>
-  <a href={hasSession ? '/profile' : '/sign-in'}>
+<button
+  id={label}
+  class="cursor-pointer hover:scale-110 transition-transform"
+  aria-label={label}
+>
+  <a id="profile-link" href={hasSession ? "/profile" : "/sign-in"}>
     <div class="flex gap-2 items-center">
-        <ProfileIcon />
-        <label class="cursor-pointer hidden w-15 lg:block">{label}</label>
-      </div>
-    </a>
-  </button> -->
+      <ProfileIcon />
+      <label
+        for="profile-link"
+        id="profile-link-label"
+        class="cursor-pointer hidden w-15 lg:block">{label}</label
+      >
+    </div>
+  </a>
+</button>
+
+<script>
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      // reload whenever user hits back button to re-validate session
+      location.reload();
+    }
+  });
+</script>
