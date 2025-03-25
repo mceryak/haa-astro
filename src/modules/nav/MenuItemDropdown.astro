@@ -1,0 +1,27 @@
+---
+import { Icon } from "astro-icon/components";
+import MenuItemLink from "./MenuItemLink.astro";
+import DropdownButton from "@/modules/dropdown/DropdownButton.astro"
+import type { MenuItem } from "./types";
+
+interface Props {
+  menuItem: MenuItem,
+  align?: string
+}
+
+const { menuItem, align = "left" }: Props = Astro.props;
+---
+
+<li class="h-full flex items-center">
+  <DropdownButton label="Shop" buttonClass="pl-4 pr-2 bg-white/10" hoverable path={menuItem.path}>
+    <ul
+      class=`list-none transition-all lg:absolute lg:top-full  whitespace-nowrap ${align}-0 rounded-b-lg lg:bg-sky-800`
+    >
+      {
+       menuItem.submenu?.map((item, idx) => (
+          <MenuItemLink item={item}/>
+        ))
+      }
+    </ul>
+  </DropdownButton>
+</li>

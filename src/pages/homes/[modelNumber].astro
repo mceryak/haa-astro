@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import type {
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+  GetStaticPaths,
+} from "astro";
+import Layout from "@/layouts/Layout.astro";
+import Lightbox from "@/modules/gallery/Lightbox";
+import MarginedContent from "@/layouts/MarginedContent.astro";
+import Attributes from "@/components/Home/Attributes.astro";
+import RequestInfoButton from "@/components/Home/RequestInfoButton.astro";
+import HomeTabs from "@/components/Home/HomeTabs.astro";
+
+
+export const getStaticPaths = (async () =>
+  (await getCollection("homes")).map((home) => ({
+    params: { modelNumber: home.data.modelNumber },
+    props: { home: home.data },
+  }))) satisfies GetStaticPaths;
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { modelNumber } = Astro.params;
+
+const { home } = Astro.props;
+
+const photos = [
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bath-1.jpg",
+    width: 4,
+    height: 3,
+  },
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bath-2.jpg",
+    width: 1,
+    height: 1,
+  },
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bedroom-1.jpg",
+    width: 1,
+    height: 1,
+  },
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bedroom-2.jpg",
+    width: 1,
+    height: 1,
+  },
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Entry.jpg",
+    width: 1,
+    height: 1,
+  },
+];
+---
+
+<Layout>
+  <Lightbox client:load photos={photos} aria-hidden="true" />
+  <MarginedContent>
+    <section class="flex flex-col w-full gap-5">
+      <div
+        class="border-b-1 border-slate-200 bg-white flex flex-col w-full gap-2 justify-between items-center py-3"
+      >
+        <!-- Model # and Request Info Button -->
+        <div class="flex w-full  items-center justify-between">
+          <h1 class="text-3xl md:text-5xl font-semibold">{modelNumber}</h1>
+          <RequestInfoButton modelNumber={home.modelNumber} />
+        </div>
+
+        <!-- Attribute Pills  -->
+        
+      </div>
+      <Attributes home={home} />
+
+      <HomeTabs />
+    </section>
+  </MarginedContent>
+</Layout>
+
+<script></script>

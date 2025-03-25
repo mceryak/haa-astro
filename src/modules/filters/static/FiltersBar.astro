@@ -1,0 +1,42 @@
+---
+import type { Filter } from "../types";
+import FilterItem from "./FilterItem.astro";
+
+interface Props {
+  filters: Filter[]
+}
+
+const { filters }: Props = Astro.props;
+---
+
+<ul class="flex flex-col lg:flex-row gap-3">
+
+  <!-- Filters -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-center">
+    {filters.map((filter) => <FilterItem filter={filter} />)}
+  </div>
+
+  <!-- Reset and Apply -->
+  <div class="grid grid-cols-2 gap-3 ">
+    <li class="cursor-pointer  bg-red-200 rounded-lg  hover:scale-[102%] lg:hover:scale-105 transition-transform">
+      <a href="/homes" class="w-full h-full flex no-underline justify-center p-2 px-4">Reset</a>
+    </li>
+    <li class=" rounded-lg  bg-green-200 hover:scale-[102%] lg:hover:scale-105 transition-transform">
+      <button id="apply-filters-btn" class="w-full h-full p-2 cursor-pointer px-4" >Apply</button>
+    </li>
+  </div>
+</ul>
+
+
+<script src="@/modules/readQueryParams/scripts/readQueryParamsToStore.js"></script>
+
+<script>
+  import { queryParams } from "@/modules/readQueryParams/store";
+  import { navigate } from "astro:transitions/client";
+
+  document.getElementById('apply-filters-btn')?.addEventListener('click', () => {
+    const selected = queryParams.get();
+    const url = selected.keys().reduce((acc, key) => `${acc}${key}=${encodeURIComponent(selected.get(key)?.join(',') ?? '')}&`, '?');
+    navigate(url.slice(0, url.length - 1));
+  })
+</script>

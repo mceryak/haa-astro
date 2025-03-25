@@ -1,8 +1,8 @@
 import type { Config } from 'drizzle-kit';
 
 const config: Config = {
-  schema: './schemas/drizzle.ts',
-  out: '.drizzle-out',
+  schema: './models/schema.ts',
+  out: './models',
   dialect: 'sqlite',
   driver: 'd1-http',
   dbCredentials: {

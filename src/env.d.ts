@@ -12,6 +12,7 @@ interface ImportMetaEnv {
   readonly D1_ACCOUNT_ID: string;
   readonly D1_ID: string;
   readonly D1_TOKEN: string;
+  readonly PUBLIC_TURNSTILE_SITE_KEY: string;
   // more env variables...
 }
 

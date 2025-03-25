@@ -23,9 +23,11 @@
     {
       "binding": "DB",
       "database_id": "ddc42abe-6758-4510-83c4-88c9af9a8b05",
-      "database_name": "haa"
+      "database_name": "haa",
+      "migrations_dir": "models"
     }
   ]
+  
   /**
    * Smart Placement
    * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

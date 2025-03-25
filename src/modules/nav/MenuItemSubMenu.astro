@@ -1,0 +1,17 @@
+---
+import MenuItemLink from './MenuItemLink.astro';
+import type { MenuItem } from './types';
+
+interface Props {
+  submenu: MenuItem[],
+  level: number
+}
+
+const { submenu, level }: Props = Astro.props;
+---
+
+<ul class="lg:hidden bg-white/10 lg:bg-sky-800  lg:absolute lg:top-full lg:left-0 lg:rounded-b-lg group-hover:block">
+  {submenu.map((subItem) => (
+    <MenuItemLink item={subItem} level={level} />
+  ))}
+</ul>

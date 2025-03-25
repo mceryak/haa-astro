@@ -1,0 +1,51 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="border-b-1 border-y-sky-700/20 w-full">
+  <button id="filters-btn" class="w-full cursor-pointer lg:hidden">
+    <div id="filters-btn-container" class="flex py-3 gap-2 items-center justify-center bg-slate-200 bg-sky-200">
+      <span class="uppercase">Filters</span>
+      <span id="filters-icon" class="transition-transform"
+        ><Icon name="mdi:chevron-down" /></span
+      >
+    </div>
+  </button>
+  <div
+    id="filters"
+    class="hidden lg:flex lg:h-15 w-full bg-white p-3 items-center justify-center"
+  >
+    <slot />
+  </div>
+</div>
+
+
+<script>
+  import { queryParams } from "@/modules/readQueryParams/store";
+
+  // if filters are applied, give the button a bg color
+  queryParams.subscribe((filters) => {
+    const hasFilters = !!filters.keys().find(k => filters.get(k)!.length > 0);
+    const container = document.getElementById('filters-btn-container');
+    if (hasFilters) {
+      container?.classList.remove('bg-slate-200');
+    } else {
+      container?.classList.add('bg-slate-200');
+    }
+  });
+</script>
+
+<script>
+  // on click, expand or un-expand the filters
+  document.getElementById("filters-btn")?.addEventListener("click", () => {
+    const filtersElem = document.getElementById("filters");
+    const iconElem = document.getElementById("filters-icon");
+    if (filtersElem?.classList.contains("hidden")) {
+      filtersElem.classList.remove("hidden");
+      iconElem?.classList.add("-rotate-180");
+    } else {
+      filtersElem?.classList.add("hidden");
+      iconElem?.classList.remove("-rotate-180");
+    }
+  });
+</script>

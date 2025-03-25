@@ -1,13 +1,34 @@
 ---
-import SearchFilters from "../../components/SearchFilters";
-import SearchResults from "../../components/SearchResults";
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import Homes from "@/components/Homes";
+import FiltersBarButton from "@/modules/filters/static/FiltersBarButton.astro";
+import FiltersBar from "@/modules/filters/static/FiltersBar.astro";
+import { getFilters } from "@/modules/filters/utils/getFilters";
 
-const response = await fetch('https://d1-http.mceryak.workers.dev/homes');
-const homes = await response.json();
+const homes = (await getCollection("homes")).map(home => home.data);
+
+const filters = getFilters(
+  [
+    { field: "beds", label: "Beds" },
+    { field: "baths", label: "Baths" },
+    { field: "type", label: "Type" },
+    { field: "series", label: "Series" },
+  ],
+  homes
+);
 ---
 
 <Layout>
-  <SearchFilters client:load/>
-  <SearchResults homes={homes} client:load/>
+  <div class="w-full flex flex-col items-center">
+    <FiltersBarButton>
+      <FiltersBar filters={filters} />
+    </FiltersBarButton>
+    <!-- <Homes client:load homes={homes.map((home) => home.data)} /> -->
+    <ul
+      class="max-w-[88rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-10 bg-slate-50"
+    >
+      <Homes client:only="react" homes={homes} />
+    </ul>
+  </div>
 </Layout>

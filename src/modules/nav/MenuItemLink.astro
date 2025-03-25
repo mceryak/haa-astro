@@ -1,0 +1,62 @@
+---
+import { Icon } from "astro-icon/components";
+import type { MenuItem } from "./types";
+import MenuItemSubMenu from "./MenuItemSubMenu.astro";
+
+interface Props {
+  item: MenuItem;
+  level?: number;
+}
+const { item, level = 0 }: Props = Astro.props;
+
+const css = `${level === 0 ? "pl-4" : "pl-6"} ${item.submenu ? "pr-2" : "pr-4"} hover:bg-white/10 py-4 lg:py-6 `;
+const border = 'border-b-1 lg:border-0 border-b-white/50';
+const dynamicId = item.label;
+---
+
+<li class="relative group whitespace-nowrap w-full">
+  {
+    item.submenu && (
+      <div id={`mobile-menu-btn-container-${dynamicId}`}>
+        <button id={`mobile-menu-btn-${dynamicId}`} class={`lg:hidden w-full cursor-pointer ${border} ${css}`}>
+          <div class="flex gap-1 items-center">
+            <span>{item.label}</span>
+            {item.submenu && <span id={`mobile-menu-btn-icon-${dynamicId}`} class="transition-transform"><Icon name="mdi:chevron-down" /></span>}
+          </div>
+        </button>
+      </div>
+    )
+  }
+  <div class=`${item.submenu ? 'hidden lg:flex' : (item.mobileOnly ? 'lg:hidden' : '' ) }` >
+    <a href={item.path} class=`flex no-underline ${border} h-full ${css} `>
+      <div class="flex gap-1 items-center">
+        <span >{item.label}</span>
+        <span class="hidden lg:block">{item.submenu && <Icon name="mdi:chevron-down" />}</span>
+      </div>
+    </a>
+  </div>
+    <div id=`mobile-menu-${dynamicId}` class=`${item.submenu ? 'hidden lg:flex' : ''}`>
+    {item.submenu && <MenuItemSubMenu submenu={item.submenu} level={level + 1} />}
+  </div>
+</li>
+
+
+<script define:vars={{ dynamicId }}>
+  const button = document.getElementById(`mobile-menu-btn-${dynamicId}`);
+  button?.addEventListener('click', () => {
+    const mobileMenu = document.getElementById(`mobile-menu-${dynamicId}`);
+    const isHidden = mobileMenu?.classList.contains('hidden');
+    
+    const buttonContainer = document.getElementById(`mobile-menu-btn-container-${dynamicId}`);
+    const icon = document.getElementById(`mobile-menu-btn-icon-${dynamicId}`);
+    if (isHidden) {
+      buttonContainer.classList.add('bg-white/10');
+      mobileMenu?.classList.remove('hidden');
+      icon?.classList.add('-rotate-180');
+    } else {
+      buttonContainer.classList.remove('bg-white/10');
+      icon?.classList.remove('-rotate-180');
+      mobileMenu?.classList.add('hidden');
+    }
+  });
+</script>

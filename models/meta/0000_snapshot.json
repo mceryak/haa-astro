@@ -1,37 +1,46 @@
 {
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
   "version": "6",
   "dialect": "sqlite",
-  "id": "bb6b4cb8-253c-4e69-aa51-48a3bd151327",
-  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "homes": {
       "name": "homes",
       "columns": {
         "modelNumber": {
+          "autoincrement": false,
           "name": "modelNumber",
           "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "type": {
+          "autoincrement": false,
           "name": "type",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": true
         },
-        "status": {
-          "name": "status",
+        "series": {
+          "autoincrement": false,
+          "name": "series",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": true
         }
       },
+      "compositePrimaryKeys": {},
       "indexes": {},
       "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "_cf_KV": {
+      "name": "_cf_KV",
+      "columns": {},
       "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
     }
@@ -42,8 +51,5 @@
     "schemas": {},
     "tables": {},
     "columns": {}
-  },
-  "internal": {
-    "indexes": {}
   }
 }

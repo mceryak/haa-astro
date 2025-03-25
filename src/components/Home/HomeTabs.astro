@@ -1,0 +1,52 @@
+---
+import Gallery from "@/modules/gallery/Gallery.astro";
+import GalleryItem from "../reusable/GalleryItem.astro";
+import Tab from "../reusable/Tab.astro";
+import Tabs from "../reusable/Tabs.astro";
+import FloorPlanLink from "./FloorPlanLink.astro";
+
+const photos = [
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bath-1.jpg",
+    width: 4,
+    height: 3,
+  },
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bath-2.jpg",
+    width: 1,
+    height: 1,
+  },
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bedroom-1.jpg",
+    width: 1,
+    height: 1,
+  },
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bedroom-2.jpg",
+    width: 1,
+    height: 1,
+  },
+  {
+    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Entry.jpg",
+    width: 1,
+    height: 1,
+  },
+];
+---
+
+<Tabs defaultActiveIdx={0} labels={["Photos", "Floor Plan", "3D Tour"]}>
+  
+  <Tab label="Photos">
+    <Gallery photos={photos}/>
+  </Tab>
+  <Tab label="Floor Plan">
+    <FloorPlanLink />
+  </Tab>
+  <Tab label="3D Tour">
+    <iframe
+      class="h-150 w-full grow"
+      src="https://my.matterport.com/show/?m=yPeXzBiFZi4"
+      frameborder="0"
+      allowfullscreen></iframe>
+  </Tab>
+</Tabs>

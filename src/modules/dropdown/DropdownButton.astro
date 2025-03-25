@@ -1,0 +1,65 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  label: string;
+  buttonClass?: string | undefined;
+}
+
+const { label, buttonClass = "", ...props }: Props = Astro.props;
+---
+
+<div class="relative">
+  <dropdown-button-wrapper data-key={label}>
+    <button class="cursor-pointer p-2 w-full" {...props}>
+      <div class="flex gap-2 items-center justify-between">
+        <span class="capitalize">{label}</span>
+        <Icon
+        id=`dropdown-icon-${label}`
+        name="mdi:chevron-down"
+        class="transition-transform"
+        />
+      </div>
+    </button>
+  </dropdown-button-wrapper>
+  <div id=`dropdown-content-${label}` class=`hidden z-30 absolute left-0 mt-1 min-w-full`>
+    <slot />
+  </div>
+</div>
+
+<script>
+  class DropdownButtonWrapper extends HTMLElement {
+    connectedCallback() {
+      // Read the message from the data attribute.
+      const { key } = this.dataset;
+      const button = this.querySelector("button");
+
+      button?.addEventListener("click", () => {
+        const contentIdPrefix = "dropdown-content-";
+        const iconIdPrefix = "dropdown-icon-";
+
+        const contentId = `${contentIdPrefix}${key}`;
+        const iconId = `${iconIdPrefix}${key}`;
+
+        const contentDiv = document.getElementById(contentId);
+        const icon = document.getElementById(iconId);
+        const isHidden = contentDiv?.classList.contains("hidden");
+
+        // hide all other dropdown content from the site
+        document
+          .querySelectorAll(`[id^=${contentIdPrefix}]`)
+          .forEach((d) => d.classList.add("hidden"));
+        document
+          .querySelectorAll(`[id^=${iconIdPrefix}]`)
+          .forEach((d) => d.classList.remove("-rotate-180"));
+
+        if (isHidden) {
+          contentDiv?.classList.remove("hidden");
+          icon?.classList.add("-rotate-180");
+        }
+      });
+    }
+  }
+
+  customElements.define("dropdown-button-wrapper", DropdownButtonWrapper);
+</script>

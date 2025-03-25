@@ -1,0 +1,30 @@
+---
+interface Props {
+  src: string,
+  idx: number
+}
+
+const { src, idx } = Astro.props;
+---
+
+<gallery-item-button data-idx={idx}>
+  <button class="cursor-pointer  transition-transform">
+    <img src={src} class="rounded-sm" />
+  </button>
+</gallery-item-button>
+
+<script>
+  import { lightboxState } from "./store";
+  class GalleryItemButton extends HTMLElement {
+    connectedCallback() {
+      // Read the message from the data attribute.
+      const { idx } = this.dataset;
+      const button = this.querySelector("button");
+
+      button?.addEventListener("click", () => {
+        lightboxState.set({ isOpen: true, startingIndex: idx });
+      });
+    }
+  }
+  customElements.define("gallery-item-button", GalleryItemButton);
+</script>

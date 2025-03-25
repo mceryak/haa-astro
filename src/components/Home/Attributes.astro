@@ -1,0 +1,23 @@
+---
+import type { Home } from "@/content.config";
+import AttributePill from "../reusable/AttributePill.astro";
+
+interface Props {
+  home: Home
+}
+const { home }: Props = Astro.props;
+---
+
+<ul class="flex flex-wrap gap-3 py-3 w-full">
+  <AttributePill
+    mdiIcon="bathtub"
+    label="Baths"
+    value={home.baths}
+  />
+  <AttributePill mdiIcon="bed" label="Beds" value={home.beds} />
+  <AttributePill
+    mdiIcon="ruler-square"
+    label="Sq. Ft."
+    value={2323}
+  />
+</ul>

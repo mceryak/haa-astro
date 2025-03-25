@@ -1,0 +1,53 @@
+---
+interface Props {
+  labels: string[]
+  defaultActiveIdx?: number
+}
+const { labels, defaultActiveIdx=0 }: Props = Astro.props;
+---
+
+<article>
+<div class="flex gap-2 mb-4">
+  {labels.map((label, idx) => (
+    <tab-button data-label={label}>
+      <button id={`tab-btn-${label}`} class={`text-xl p-2 border-s-sky-900 cursor-pointer transition-all ${idx === defaultActiveIdx ? 'border-b-2' : ''}`}>{label}</button>
+    </tab-button>
+  ))}
+</div>
+
+<slot />
+</article>
+
+
+<script defer define:vars={{ label: labels[defaultActiveIdx] }}>
+  // un-hide the default active tab's content 
+  document.querySelector(`[id="tab-content-${label}"]`)?.classList.remove("hidden");
+</script>
+
+<script>
+  class TabButton extends HTMLElement {
+    connectedCallback() {
+      const buttonIdPrefix = "tab-btn-";
+      const contentIdPrefix = "tab-content-";
+
+      const buttonSelectedClass = "border-b-2";
+
+      const button = this.querySelector("button");
+      const { label } = this.dataset;
+
+      button?.addEventListener("click", () => {
+        document
+          .querySelectorAll(`[id^=${buttonIdPrefix}]`)
+          .forEach((d) => d.classList.remove(buttonSelectedClass));
+
+        document
+          .querySelectorAll(`[id^=${contentIdPrefix}]`)
+          .forEach((d) => d.classList.add("hidden"));
+
+        button.classList.add(buttonSelectedClass);
+        document.querySelector(`[id="${contentIdPrefix}${label}"]`)?.classList.remove("hidden");
+      });
+    }
+  }
+  customElements.define("tab-button", TabButton);
+</script>

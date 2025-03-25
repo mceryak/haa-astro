@@ -1,0 +1,13 @@
+---
+interface Props {
+  bgClass?: string
+}
+const { bgClass='bg-white' } = Astro.props
+---
+
+
+<!-- <div class=`w-full ${bgClass}`> -->
+  <div class="max-w-[88rem] w-full mx-5 md:mx-10 lg:mx-20">
+    <slot />
+  </div>
+<!-- </div> -->

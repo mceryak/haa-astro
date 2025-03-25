@@ -1,43 +1,25 @@
 ---
 import "../../styles/global.css";
 
-// import Logo from "../../assets/images/logo.webp";
 import { Icon } from "astro-icon/components";
 import MenuItemLink from "./MenuItemLink.astro";
-import MenuItemDropdown from "./MenuItemDropdown.astro";
-// import GoogleSignIn from "../GoogleSignIn.astro";
-// import GSignInButton from "../auth/GSignInButton";
-// import GSignOutButton from "../auth/SignOutButtonClient";
-// import SignOutButton from "../SignOutButton.astro";
-// import SignInButton from "../auth/SignInButton.astro";
-// import SignOutButton from "../auth/SignOutButton.astro";
-// import ProfileButton from "./ProfileButton.astro";
 import ProfileButtonIsland from "./ProfileButtonIsland.astro";
+import type { MenuItem } from "@/modules/nav/types";
 
-const menuItems = [
-  {
-    label: "Shop",
-    submenu: [
-      { label: "Manufactured Homes", path: "/homes" },
-      { label: "Modular Homes", path: "/homes" },
-      { label: "Tiny Homes", path: "/homes" },
-      { label: "Carports", path: "/carports" },
-    ],
-  },
-  { label: "Services", path: "/services" },
-  { label: "Finance", path: "/finance" },
-  { label: "FAQ", path: "/faq" },
-  { label: "About", path: "/about" },
-  { label: "Contact", path: "/contact" },
-];
+interface Props {
+  menuItems: MenuItem[]
+  phone?: string
+}
+
+const { menuItems, phone="333-333-3333" }: Props = Astro.props;
 ---
 
-<a href="tel:3176916790" aria-label="Call us at 333-333-3333">
+<a href=`tel:${phone}` aria-label=`Call us at ${phone}`>
   <div
     class="flex items-center gap-2 justify-center p-1 bg-sky-950 border-b-1 border-b-white/20 text-zinc-200 hover:bg-sky-700 transition-colors"
   >
     <Icon name="mdi:phone" />
-    333-333-3333
+    {phone}
   </div>
 </a>
 
@@ -91,19 +73,14 @@ const menuItems = [
     <a class="hidden lg:flex lg:items-center cursor-pointer" href="/">
       <img src="/images/logo4.png" width="170" alt="Home" class="p-2" />
     </a>
-    <span class="lg:hidden">
-      <MenuItemLink path="/" label="Home" class="mr-auto" aria-current="page" />
-    </span>
+    <div class="lg:hidden">
+      <MenuItemLink
+        item={{ path: "/", label: "Home Page" }}
+        aria-current="page"
+      />
+    </div>
     <div class="flex flex-col lg:flex-row items-center">
-      {
-        menuItems.map((item) =>
-          item.path ? (
-            <MenuItemLink path={item.path} label={item.label} />
-          ) : (
-            <MenuItemDropdown label={item.label} submenuItems={item.submenu} />
-          )
-        )
-      }
+      {menuItems.map((item) => <MenuItemLink item={item} />)}
     </div>
 
     <div class="hidden lg:flex items-center whitespace-nowrap">

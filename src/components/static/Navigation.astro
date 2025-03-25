@@ -1,0 +1,26 @@
+---
+import type { MenuItem } from "@/modules/nav/types";
+
+import Navbar from "@/modules/nav/Navbar.astro";
+
+const menuItems: MenuItem[] = [
+  {
+    label: "Homes",
+    path: "/homes",
+    submenu: [
+      { label: "All Homes", path: "/homes", mobileOnly: true },
+      { label: "Manufactured Homes", path: "/homes?type=Manufactured" },
+      { label: "Modular Homes", path: "/homes?type=Modular" },
+      { label: "Tiny Homes", path: "/homes?type=Tiny%20Home" },
+    ],
+  },
+  { label: "Carports", path: "/carports" },
+  { label: "Services", path: "/services" },
+  { label: "Finance", path: "/finance" },
+  { label: "FAQ", path: "/faq" },
+  { label: "About", path: "/about" },
+  { label: "Contact", path: "/contact" },
+];
+---
+
+<Navbar phone="333-333-3333" menuItems={menuItems} />

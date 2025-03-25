@@ -1,0 +1,46 @@
+---
+import FilterList from "@/modules/filters/client/FilterList";
+import DropdownButton from "@/modules/dropdown/DropdownButton.astro";
+import type { Filter } from "../types";
+
+interface Props {
+  filter: Filter
+}
+
+const { filter }: Props = Astro.props;
+---
+
+<!-- ! double bgs is intentional! so that tailwind builds the class, and we can swap -->
+<li 
+  id=`filter-item-${filter.field}`
+  data-key={filter.field}
+  class="bg-slate-100 bg-sky-200 rounded-lg"
+>
+  
+  <DropdownButton label={filter.label}>
+    <ul class="p-4 bg-white border-1 border-slate-300 rounded-md shadow transition-all">
+      <FilterList client:only="react" filterKey={filter.field} options={filter.options} />
+    </ul>
+  </DropdownButton>
+</li>
+
+<script>
+  import { queryParams } from "@/modules/readQueryParams/store";
+
+  queryParams.subscribe((filters) => {
+    document.querySelectorAll(`[id^=filter-item-]`).forEach((elem) => {
+      const idSplit = elem.id.split("-");
+      const key = idSplit[idSplit.length - 1];
+      const value: string[] = filters.get(key) ?? [];
+      if (value.length) {
+        elem.classList.remove("bg-slate-100");
+        elem.classList.add("bg-sky-200");
+        console.log(key, "selected");
+      } else {
+        elem.classList.add("bg-slate-100");
+        elem.classList.remove("bg-sky-200");
+        console.log(key, "de-selected");
+      }
+    });
+  });
+</script>

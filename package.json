@@ -11,15 +11,18 @@
     "cf-typegen": "wrangler types",
     "drizzle:generate": "drizzle-kit generate",
     "drizzle:migrate": "drizzle-kit migrate",
-    "drizzle:dev": "drizzle-kit studio"
+    "drizzle:dev": "drizzle-kit studio",
+    "drizzle:pull": "drizzle-kit pull"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.2.1",
     "@astrojs/react": "^4.2.0",
+    "@fontsource-variable/outfit": "^5.2.5",
     "@fontsource-variable/quicksand": "^5.1.1",
-    "@fontsource/twinkle-star": "^5.1.1",
+    "@fontsource/twinkle-star": "^5.2.5",
     "@iconify-json/mdi": "^1.2.3",
     "@libsql/kysely-libsql": "^0.4.1",
+    "@marsidev/react-turnstile": "^1.1.0",
     "@nanostores/react": "^0.8.4",
     "@paralleldrive/cuid2": "^2.2.2",
     "@tailwindcss/vite": "^4.0.6",
@@ -37,7 +40,9 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
-    "tailwindcss": "^4.0.6"
+    "resend": "^4.1.2",
+    "tailwindcss": "^4.0.6",
+    "yet-another-react-lightbox": "^3.21.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250204.0",
