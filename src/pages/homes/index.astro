@@ -4,29 +4,25 @@ import Layout from "../../layouts/Layout.astro";
 import Homes from "@/components/Homes";
 import FiltersBarButton from "@/modules/filters/static/FiltersBarButton.astro";
 import FiltersBar from "@/modules/filters/static/FiltersBar.astro";
-import { getFilters } from "@/modules/filters/utils/getFilters";
+import { getHomeFilters } from "@/utils/filters";
+import type { Home } from "@/content.config";
 
-const homes = (await getCollection("homes")).map(home => home.data);
+// TODO: undo this shit
+const homes: Home[] = await (await fetch('https://d1-http.mceryak.workers.dev/homes')).json();
+// const homes = (await getCollection("homes")).map((home) => home.data);
 
-const filters = getFilters(
-  [
-    { field: "beds", label: "Beds" },
-    { field: "baths", label: "Baths" },
-    { field: "type", label: "Type" },
-    { field: "series", label: "Series" },
-  ],
-  homes
-);
+
+const filters = getHomeFilters(homes);
 ---
 
-<Layout>
+<Layout bgClass="bg-slate-50">
   <div class="w-full flex flex-col items-center">
     <FiltersBarButton>
       <FiltersBar filters={filters} />
     </FiltersBarButton>
     <!-- <Homes client:load homes={homes.map((home) => home.data)} /> -->
     <ul
-      class="max-w-[88rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-10 bg-slate-50"
+      class="max-w-[88rem]  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-10"
     >
       <Homes client:only="react" homes={homes} />
     </ul>

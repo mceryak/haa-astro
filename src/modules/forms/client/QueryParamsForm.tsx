@@ -12,7 +12,7 @@ export default function QueryParamsForm({ formItems, defaultValues={}, action }:
   return (
     <Form 
       formItems={formItems} 
-      defaultValues={$queryParams.keys().reduce((acc, k) => ({ ...acc, [k]: $queryParams.get(k)?.at(0) }), defaultValues)}
+      defaultValues={Object.keys($queryParams).reduce((acc, k) => ({ ...acc, [k]: $queryParams[k]?.at(0) }), defaultValues)}
       action={action}
     />
   )

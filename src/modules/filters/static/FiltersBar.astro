@@ -7,12 +7,17 @@ interface Props {
 }
 
 const { filters }: Props = Astro.props;
+const lgGridCols = filters.length === 4 
+  ? 'lg:grid-cols-4' : filters.length === 5
+  ? 'lg:grid-cols-5' : filters.length === 6
+  ? 'lg:grid-cols-6' : filters.length === 7
+  ? 'lg:grid-cols-7' : 'lg:grid-cols-8'; // tailwind limitation - the class must be hardcoded
 ---
 
-<ul class="flex flex-col lg:flex-row gap-3">
+<ul class="flex flex-col lg:flex-row gap-3 bg-white">
 
   <!-- Filters -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-center">
+  <div class=`grid grid-cols-1 md:grid-cols-5 ${lgGridCols} gap-3 items-center`>
     {filters.map((filter) => <FilterItem filter={filter} />)}
   </div>
 
@@ -36,7 +41,7 @@ const { filters }: Props = Astro.props;
 
   document.getElementById('apply-filters-btn')?.addEventListener('click', () => {
     const selected = queryParams.get();
-    const url = selected.keys().reduce((acc, key) => `${acc}${key}=${encodeURIComponent(selected.get(key)?.join(',') ?? '')}&`, '?');
-    navigate(url.slice(0, url.length - 1));
+    const url = Object.keys(selected).reduce((acc, key) => `${acc}${key}=${encodeURIComponent(selected[key]?.join(',') ?? '')}&`, '?');
+    navigate('/homes' + url.slice(0, url.length - 1));
   })
 </script>

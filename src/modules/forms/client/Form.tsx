@@ -19,12 +19,13 @@ export default function Form({ formItems, defaultValues={}, action }: FormInput)
   
   const handleSubmit = async (prevFormState, formData: FormData) => {
     // if validation fails at any point, return the currently entered values so user can try again
-    const values = formData.keys().reduce((acc, k) => ({ ...acc, [k]: formData.get(k) }), {});
+    const values = [...formData.keys()].reduce((acc, k) => ({ ...acc, [k]: formData.get(k) }), {}); // the [...keys] is for safari bug!
 
     // check required fields so we don't have to make unnecessary trip to server
     const emptyRequiredFields = formItems.filter(item => item.required && !formData.get(item.name)?.length);
     if (emptyRequiredFields.length) {
       return {
+        error: 'Fix all errors and try again.',
         fieldErrors: emptyRequiredFields.reduce((acc, item) => ({ ...acc, [item.name]: 'This field is required.' }), {}),
         values
       };
@@ -59,7 +60,7 @@ export default function Form({ formItems, defaultValues={}, action }: FormInput)
         <FormSubmit disabled={!token || success} />
       </div>
     </form>
-    {success && <div className="bg-green-200 border-2 border-green-700 rounded-md p-3 flex justify-center w-full text-center"><p>Thank you! We have received your request and will get back to you soon!</p></div>}
-    {formState.error && <div className="p-3 bg-red-200 border-2 border-red-700 rounded-md  flex justify-center w-full text-center"><p>{formState.error}</p></div>}
+    {success && <div className=" max-w-200 bg-green-200 border-2 border-green-700 rounded-md p-3 flex justify-center w-full text-center"><p>Thank you! We have received your request and will get back to you soon!</p></div>}
+    {formState.error && <div className=" max-w-200 p-3 bg-red-200 border-2 border-red-700 rounded-md  flex justify-center w-full text-center"><p>{formState.error}</p></div>}
   </div>;
 }

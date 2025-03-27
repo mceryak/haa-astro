@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 ---
 
 <div class="border-b-1 border-y-sky-700/20 w-full">
-  <button id="filters-btn" class="w-full cursor-pointer lg:hidden">
+  <button id="filters-btn" class="w-full cursor-pointer md:hidden">
     <div id="filters-btn-container" class="flex py-3 gap-2 items-center justify-center bg-slate-200 bg-sky-200">
       <span class="uppercase">Filters</span>
       <span id="filters-icon" class="transition-transform"
@@ -13,7 +13,7 @@ import { Icon } from "astro-icon/components";
   </button>
   <div
     id="filters"
-    class="hidden lg:flex lg:h-15 w-full bg-white p-3 items-center justify-center"
+    class="hidden md:flex lg:h-15 w-full bg-white p-3 items-center justify-center"
   >
     <slot />
   </div>
@@ -25,7 +25,7 @@ import { Icon } from "astro-icon/components";
 
   // if filters are applied, give the button a bg color
   queryParams.subscribe((filters) => {
-    const hasFilters = !!filters.keys().find(k => filters.get(k)!.length > 0);
+    const hasFilters = !!Object.keys(filters).find(k => filters[k]!.length > 0);
     const container = document.getElementById('filters-btn-container');
     if (hasFilters) {
       container?.classList.remove('bg-slate-200');

@@ -6,25 +6,24 @@ import { memo } from "react";
 const FilterList = memo(({ filterKey, options }: { filterKey: string, options: string[] }) => {
   const $filters = useStore(queryParams);
   
-  const selected: string[] = $filters.get(filterKey) ?? [];
+  const selected: string[] = $filters[filterKey] ?? [];
   // console.log('list filters', selected);
 
   const handleClick = (option: string) => {
-    let newSelected = selected.includes(option) ? selected.filter(o => o !== option) : [...selected, option];
-    // filters.set({ ...$filters, [filterKey]: newSelected });
-    let newFilters = new Map<string, string[]>();
-    [...$filters.keys(), filterKey].forEach(k => newFilters.set(k, k === filterKey ? newSelected : $filters.get(k) ?? []));
+    // let newSelected = selected.includes(option) ? selected.filter(o => o !== option) : [...selected, option];
+    // let newFilters = new Map<string, string[]>();
+    // [...$filters.keys(), filterKey].forEach(k => newFilters.set(k, k === filterKey ? newSelected : $filters.get(k) ?? []));
     // console.log(newFilters);
-    queryParams.set(newFilters);
+    queryParams.set({ ...$filters, [filterKey]: selected.includes(option) ? selected.filter(o => o !== option) : [...selected, option] });
   }
   
   return <>{
-    options.map((option: string) => { const isChecked = selected.includes(option); return (
-      <li key={`${filterKey}-${option}`}  className="flex whitespace-nowrap gap-2 py-1 text-black">
-        <input id={`${filterKey}-${option}-input`} type="checkbox" onChange={() => handleClick(option)} value={option} checked={isChecked} />
-        <label htmlFor={`${filterKey}-${option}-input`} className="pl-2">{option}</label>
+    options.map((option: string) => (
+      <li key={`${filterKey}-${option}`}  style={{ display: "flex", alignItems: 'center', gap: "1rem", padding: 3, whiteSpace: "nowrap" }}>
+        <input id={`${filterKey}-${option}-input`} type="checkbox" onChange={() => handleClick(option)} value={option} checked={selected.includes(option)} />
+        <label htmlFor={`${filterKey}-${option}-input`} >{option}</label>
       </li>
-    )})
+    ))
   }</>;
 });
 

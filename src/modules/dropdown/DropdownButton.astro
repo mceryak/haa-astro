@@ -2,18 +2,23 @@
 import { Icon } from "astro-icon/components";
 
 interface Props {
-  label: string;
+  label: string
+  icon?: string
   buttonClass?: string | undefined;
 }
 
-const { label, buttonClass = "", ...props }: Props = Astro.props;
+const { label, icon, buttonClass = "", ...props }: Props = Astro.props;
 ---
 
 <div class="relative">
   <dropdown-button-wrapper data-key={label}>
     <button class="cursor-pointer p-2 w-full" {...props}>
       <div class="flex gap-2 items-center justify-between">
-        <span class="capitalize">{label}</span>
+        <div class="flex gap-2 items-center">
+
+          {icon && <Icon name={`mdi:${icon}`} />}
+          <span class="capitalize">{label}</span>
+        </div>
         <Icon
         id=`dropdown-icon-${label}`
         name="mdi:chevron-down"

@@ -2,26 +2,19 @@ import type { Home } from "@/content.config";
 import { useState } from "react";
 import { queryParams } from "@/modules/readQueryParams/store";
 import { useStore } from "@nanostores/react";
+import { applyFilters } from "@/modules/filters/utils/applyFilters";
 
 export default function Homes({ homes }: { homes: Home[]}) {
   const [curPage, setCurPage] = useState(1);
   const $filters = useStore(queryParams);
 
-  const filteredHomes = homes
-    .filter(home =>
-      $filters
-        .keys()
-        .reduce((passes, key) =>
-          passes && (!$filters.get(key)!.length || $filters.get(key)!.includes(`${home[key]}`)),
-          true
-        )
-    );
+  const filteredHomes = applyFilters($filters, homes);
   
   return (
     <>
       {
         filteredHomes.map((home) => (
-          <li key={home.modelNumber} className="bg-white rounded-md hover:scale-[102%] transition-transform cursor-pointer shadow">
+          <li key={home.modelNumber} className="bg-white rounded-md transition-transform cursor-pointer shadow">
             <a
               href={`/homes/${home.modelNumber}`}
             >
@@ -31,7 +24,7 @@ export default function Homes({ homes }: { homes: Home[]}) {
                 <div className="flex gap-2">
                   <p className="border-r-1 pr-2">{home.beds} beds</p>
                   <p className="border-r-1 pr-2">{home.baths} baths</p>
-                  <p>3252 sq. ft.</p>
+                  <p>{home.sqft} sq. ft.</p>
                 </div>
               </div>
             </a>

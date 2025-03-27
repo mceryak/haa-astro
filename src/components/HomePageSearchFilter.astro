@@ -1,0 +1,23 @@
+---
+import type { Filter } from '@/modules/filters/types';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  filter: Filter
+}
+
+const { filter } = Astro.props;
+---
+
+{filter.homePageSize && 
+<div class=`${filter.homePageSize === 'sm' ? 'flex' : 'hidden'} ${filter.homePageSize === 'md' ? 'md:flex' : 'lg:flex'} items-center gap-1 border-2 border-slate-200 rounded-4xl p-2 `>
+
+  <Icon name=`mdi:${filter.icon}` />
+  <select name={filter.field}  >
+    <option value="">-- {filter.label} --</option>
+    {filter.options.map(option => (
+      <option value={option}>{option}</option>
+    ))}
+</select>
+</div>
+}

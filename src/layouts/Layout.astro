@@ -4,7 +4,11 @@ import Footer from '@/components/Footer.astro';
 // Supports weights 100-900
 import '@fontsource-variable/outfit';
 
-const { noCache=false } = Astro.props;
+interface Props {
+  bgClass?: string
+}
+
+const { bgClass="bg-white" } = Astro.props;
 ---
 
 <!doctype html>
@@ -14,13 +18,13 @@ const { noCache=false } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-    {noCache && <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate, max-age=0" />}
+    <!-- {noCache && <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate, max-age=0" />} -->
 		<title>Astro Basics</title>
 	</head>
 	<body>
     <Navigation />
     <slot name="hero" />
-    <main id="main-content" class="flex justify-center items-center">
+    <main id="main-content" class=`min-h-[75vh] ${bgClass}`>
       
 
         <slot />

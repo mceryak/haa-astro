@@ -4,6 +4,7 @@ import { defineCollection, z } from "astro:content";
 const homeSchema = z.object({
   modelNumber: z.string(),
   type: z.string(),
+  sqft: z.number(),
   series: z.string(),
   beds: z.number(),
   baths: z.number()

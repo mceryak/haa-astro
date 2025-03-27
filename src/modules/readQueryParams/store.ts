@@ -1,3 +1,7 @@
 import { atom } from 'nanostores';
 
-export const queryParams = atom(new Map<string, string[]>());
+export type QueryParams = {
+  [key: string]: string[]
+}
+const defaultQueryParams: QueryParams = {};
+export const queryParams = atom(defaultQueryParams);

@@ -17,7 +17,7 @@ const { filter }: Props = Astro.props;
   class="bg-slate-100 bg-sky-200 rounded-lg"
 >
   
-  <DropdownButton label={filter.label}>
+  <DropdownButton label={filter.label} icon={filter.icon}>
     <ul class="p-4 bg-white border-1 border-slate-300 rounded-md shadow transition-all">
       <FilterList client:only="react" filterKey={filter.field} options={filter.options} />
     </ul>
@@ -31,7 +31,7 @@ const { filter }: Props = Astro.props;
     document.querySelectorAll(`[id^=filter-item-]`).forEach((elem) => {
       const idSplit = elem.id.split("-");
       const key = idSplit[idSplit.length - 1];
-      const value: string[] = filters.get(key) ?? [];
+      const value: string[] = filters[key] ?? [];
       if (value.length) {
         elem.classList.remove("bg-slate-100");
         elem.classList.add("bg-sky-200");
