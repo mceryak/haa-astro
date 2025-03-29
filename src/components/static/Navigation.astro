@@ -21,6 +21,8 @@ const menuItems: MenuItem[] = [
   { label: "About", path: "/about" },
   { label: "Contact", path: "/contact" },
 ];
+
+const { activePage } = Astro.props;
 ---
 
-<Navbar phone="333-333-3333" menuItems={menuItems} />
+<Navbar phone="333-333-3333" menuItems={menuItems} activePage={activePage} />

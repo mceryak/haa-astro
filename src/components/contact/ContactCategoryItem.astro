@@ -1,0 +1,30 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  href?: string | undefined
+  openInNewTab?: boolean
+  icon?: string | undefined
+  ariaLabel?: string 
+}
+
+const { href, openInNewTab=false, icon, ariaLabel='' }: Props = Astro.props;
+---
+
+<li>
+  {href ? (
+    <a href={href} target=`${openInNewTab ? '_blank' : '_self'}`>
+    <div class="flex gap-2 items-center  text-blue-500  ">
+      {icon && <Icon name=`mdi:${icon}` aria-label={ariaLabel}/>}
+      <slot />
+    </div>
+    </a>
+  ) : (
+    <div class="flex gap-2 items-center ">
+      {icon && <Icon name=`mdi:${icon}` aria-label={ariaLabel}/>}
+      <p class="text-center md:text-left">
+        <slot />
+      </p>
+    </div>
+  )
+</li>

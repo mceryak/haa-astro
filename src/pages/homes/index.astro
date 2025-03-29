@@ -15,7 +15,7 @@ const homes: Home[] = await (await fetch('https://d1-http.mceryak.workers.dev/ho
 const filters = getHomeFilters(homes);
 ---
 
-<Layout bgClass="bg-slate-50">
+<Layout bgClass="bg-slate-50" activePage="Homes">
   <div class="w-full flex flex-col items-center">
     <FiltersBarButton>
       <FiltersBar filters={filters} />

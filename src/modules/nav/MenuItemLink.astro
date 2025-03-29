@@ -6,11 +6,12 @@ import MenuItemSubMenu from "./MenuItemSubMenu.astro";
 interface Props {
   item: MenuItem;
   level?: number;
+  isActivePage?: boolean
 }
-const { item, level = 0 }: Props = Astro.props;
+const { item, level = 0, isActivePage=false }: Props = Astro.props;
 
 const css = `${level === 0 ? "pl-4" : "pl-6"} ${item.submenu ? "pr-2" : "pr-4"} hover:bg-white/10 py-4 lg:py-6 `;
-const border = 'border-b-1 lg:border-0 border-b-white/50';
+const border = `border-2 rounded-sm lg:rounded-none lg:border-t-0 lg:border-x-0 lg:border-b-4 ${isActivePage ? 'border-white/70 ' : ' border-white/0'} `;
 const dynamicId = item.label;
 ---
 
@@ -28,7 +29,7 @@ const dynamicId = item.label;
     )
   }
   <div class=`${item.submenu ? 'hidden lg:flex' : (item.mobileOnly ? 'lg:hidden' : '' ) }` >
-    <a href={item.path} class=`flex no-underline ${border} h-full ${css} `>
+    <a href={item.path} class=`flex no-underline ${border} h-full ${css} ` aria-current=`${isActivePage ? 'page' : 'false'}`>
       <div class="flex gap-1 items-center">
         <span >{item.label}</span>
         <span class="hidden lg:block">{item.submenu && <Icon name="mdi:chevron-down" />}</span>
@@ -36,7 +37,7 @@ const dynamicId = item.label;
     </a>
   </div>
     <div id=`mobile-menu-${dynamicId}` class=`${item.submenu ? 'hidden lg:flex' : ''}`>
-    {item.submenu && <MenuItemSubMenu submenu={item.submenu} level={level + 1} />}
+    {item.submenu && <MenuItemSubMenu submenu={item.submenu} level={level + 1} isActivePage="" />}
   </div>
 </li>
 

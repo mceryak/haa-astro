@@ -9,9 +9,10 @@ import type { MenuItem } from "@/modules/nav/types";
 interface Props {
   menuItems: MenuItem[]
   phone?: string
+  activePage: string
 }
 
-const { menuItems, phone="333-333-3333" }: Props = Astro.props;
+const { menuItems, phone="333-333-3333", activePage }: Props = Astro.props;
 ---
 
 <a href=`tel:${phone}` aria-label=`Call us at ${phone}`>
@@ -76,11 +77,11 @@ const { menuItems, phone="333-333-3333" }: Props = Astro.props;
     <div class="lg:hidden">
       <MenuItemLink
         item={{ path: "/", label: "Home Page" }}
-        aria-current="page"
+        isActivePage={activePage === ' '}
       />
     </div>
     <div class="flex flex-col lg:flex-row items-center">
-      {menuItems.map((item) => <MenuItemLink item={item} />)}
+      {menuItems.map((item) => <MenuItemLink item={item} isActivePage={activePage === item.label} />)}
     </div>
 
     <div class="hidden lg:flex items-center whitespace-nowrap">

@@ -1,10 +1,95 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import ContactForm from "@/components/client/ContactForm";
+import LeafletMap from "@/modules/maps/LeafletMap";
+import { Icon } from "astro-icon/components";
+import ContactCategory from "@/components/contact/ContactCategory.astro";
+import ContactCategoryItem from "@/components/contact/ContactCategoryItem.astro";
+import PageTitle from "@/components/reusable/PageTitle.astro";
+
+const mapsUrl = "https://maps.app.goo.gl/MUsH1n2uCzfLdJjJA";
+
+const phone = "333-333-3333";
+const email = "homesacross@merica.com";
 ---
 
-<Layout>
+<Layout activePage="Contact">
+  <!-- <div class="flex items-center justify-center pt-3">
+
+    <PageTitle title="Contact Us" />
+  </div> -->
+  <div
+    class="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-7 mt-3"
+  >
+    <div class="hidden md:block">
+      <LeafletMap
+        client:only
+        googleMapsUrl={mapsUrl}
+        lat={30.492467529996787}
+        long={-95.494105528836}
+        width="50vw"
+        maxWidth="30rem"
+        height="22rem"
+      />
+    </div>
+    <!-- <div class="hidden  lg:block">
+      <LeafletMap
+        client:only
+        googleMapsUrl={mapsUrl}
+        lat={30.492467529996787}
+        long={-95.494105528836}
+        width="30rem"
+        height="22rem"
+      />
+    </div> -->
+
+    <ul
+      class="md:py-5 px-3 flex flex-col gap-4 w-full max-w-120 md:w-80 items-center"
+    >
+      <ContactCategory title="Contact Info" >
+        <ContactCategoryItem
+          ariaLabel="Business Hours"
+          icon="clock-time-three-outline"
+          >9:00am - 6:00pm | Mon - Fri</ContactCategoryItem
+        >
+        <ContactCategoryItem
+          ariaLabel="Address"
+          icon="map-marker-radius"
+          href={mapsUrl}
+          openInNewTab
+          >17431 Interstate 45 N, Willis, TX 77318</ContactCategoryItem
+        >
+        <ContactCategoryItem
+          ariaLabel="Phone Number"
+          icon="phone"
+          href=`tel:${phone}`>{phone}</ContactCategoryItem
+        >
+        <ContactCategoryItem
+          ariaLabel="Email"
+          icon="email"
+          href=`mailto:${email}`>{email}</ContactCategoryItem
+        >
+      </ContactCategory>
+      <li class="md:hidden">
+        <LeafletMap
+          client:only
+          googleMapsUrl={mapsUrl}
+          lat={30.492467529996787}
+          long={-95.494105528836}
+          width="90vw"
+          height="15rem"
+        />
+      </li>
+      <ContactCategory title="Send Us a Message">
+        <ContactCategoryItem
+          >We would love to send you more information on our homes. Please fill
+          out the form below and we will respond QUICKLY.</ContactCategoryItem
+        >
+      </ContactCategory>
+    </ul>
+  </div>
   <ContactForm client:load />
 </Layout>
 
-<script src="@/modules/readQueryParams/scripts/readQueryParamsToStore.js"></script>
+<script src="@/modules/readQueryParams/scripts/readQueryParamsToStore.js"
+></script>

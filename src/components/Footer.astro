@@ -1,7 +1,53 @@
 ---
-
+import ContactCategory from "./contact/ContactCategory.astro";
+import ContactCategoryItem from "./contact/ContactCategoryItem.astro";
 ---
 
-<div class="h-75  bg-gradient-to-b from-sky-700 to-sky-900">
-  
+<div class="h-1 w-full bg-gradient-to-b from-transparent to-sky-900"></div>
+<div class="bg-black w-full h-auto relative flex justify-center">
+  <div
+    class="h-80 absolute inset-0 bg-sky-800 bg-[url('/svgs/footer-bg.svg')] bg-cover bg-top w-full bg-blend-luminosity"
+  >
+  </div>
+  <div
+    class="absolute inset-0 w-full h-80 bg-gradient-to-b from-black/30 to-black flex md:items-center justify-center text-zinc-100"
+  >
+  </div>
+  <ul
+    class="w-full px-5 md:w-auto flex flex-col md:flex-row gap-5 md:gap-10 py-10 text-zinc-100 relative"
+  >
+    <ContactCategory title="Shop" isAccordionOnMobile mobileAlign="left">
+      <ContactCategoryItem href="/homes?type=Manufactured"
+        >Manufactured Homes</ContactCategoryItem
+      >
+      <ContactCategoryItem href="/homes?type=Modular"
+        >Modular Homes</ContactCategoryItem
+      >
+      <ContactCategoryItem href="/homes?type=Tiny%20Homes"
+        >Tiny Homes</ContactCategoryItem
+      >
+      <ContactCategoryItem href="/carports">Carports</ContactCategoryItem>
+    </ContactCategory>
+    <ContactCategory
+      title="Licensing"
+      maxWidth="md:max-w-100"
+      isAccordionOnMobile
+      mobileAlign="left"
+    >
+      <ContactCategoryItem
+        >TDHCA Manufactured Housing License RBI 34489</ContactCategoryItem
+      >
+      <ContactCategoryItem>TDLR Modular License # IHB 1497</ContactCategoryItem>
+      <ContactCategoryItem
+        >CCC Texas Creditor Register # 03-19791</ContactCategoryItem
+      >
+      <ContactCategoryItem href="https://www.tdhca.texas.gov/mh"
+        >TDHCA- Texas Dept. of Housing & Community Affairs Manufactured Housing
+        Division</ContactCategoryItem
+      >
+      <ContactCategoryItem href="https://www.texasmha.com"
+        >TMHA- Texas Manufactured Housing Association</ContactCategoryItem
+      >
+    </ContactCategory>
+  </ul>
 </div>

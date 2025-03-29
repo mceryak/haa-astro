@@ -6,9 +6,10 @@ import '@fontsource-variable/outfit';
 
 interface Props {
   bgClass?: string
+  activePage: 'Contact' | 'About' | 'FAQ' | 'Finance' | 'Services' | 'Carports' | 'Homes' | ''
 }
 
-const { bgClass="bg-white" } = Astro.props;
+const { bgClass="bg-white", activePage='' } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,7 +23,7 @@ const { bgClass="bg-white" } = Astro.props;
 		<title>Astro Basics</title>
 	</head>
 	<body>
-    <Navigation />
+    <Navigation activePage={activePage}/>
     <slot name="hero" />
     <main id="main-content" class=`min-h-[75vh] ${bgClass}`>
       
