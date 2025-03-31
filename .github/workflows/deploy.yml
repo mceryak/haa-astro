@@ -1,0 +1,25 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - master  # Run workflow when pushing to master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18  # Adjust based on your project requirements
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run deploy script
+        run: npm run deploy
