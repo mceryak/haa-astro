@@ -2,7 +2,7 @@
 // import FiltersBar from "@/modules/filters/static/FiltersBar.astro";
 import Layout from "../layouts/Layout.astro";
 // import { Icon } from "astro-icon/components";
-// import HomePageSearchFilter from "@/components/HomePageSearchFilter.astro";
+import HomePageSearchFilter from "@/components/HomePageSearchFilter.astro";
 import { getCollection } from "astro:content";
 // import { getFilters } from "@/modules/filters/utils/getFilters";
 import { getHomeFilters } from "@/utils/filters";
@@ -14,9 +14,8 @@ const homes = (await getCollection("homes")).map((home) => home.data);
 const filters = getHomeFilters(homes);
 ---
 
-Home
 <Layout >
-  <!-- <div
+  <div
     class="relative w-full h-[500px]  bg-[url(/images/hero-temp.jpg)]  bg-cover bg-center"
   >
     <div class="absolute top-0 left-0 w-full h-full bg-black/50">
@@ -37,5 +36,5 @@ Home
       </div>
     </div>
 
-  </div> -->
+  </div>
 </Layout>
