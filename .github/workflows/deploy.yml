@@ -9,6 +9,23 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     
+    env:
+      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+      BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL }}
+      GOOGLE_AUTH_CALLBACK_URL: ${{ secrets.GOOGLE_AUTH_CALLBACK_URL }}
+      GOOGLE_AUTH_CLIENT: ${{ secrets.GOOGLE_AUTH_CLIENT }}
+      GOOGLE_AUTH_SECRET: ${{ secrets.GOOGLE_AUTH_SECRET }}
+      KEYSTATIC_GITHUB_CLIENT_ID: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}
+      KEYSTATIC_GITHUB_CLIENT_SECRET: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
+      KEYSTATIC_SECRET: ${{ secrets.KEYSTATIC_SECRET }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+      TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+      TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+      PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: ${{ variables.PUBLIC_KEYSTATIC_GITHUB_APP_SLUG }}
+      PUBLIC_TURNSTILE_SITE_KEY: ${{ variables.PUBLIC_TURNSTILE_SITE_KEY }}
+      
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
