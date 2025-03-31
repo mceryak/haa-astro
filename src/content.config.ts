@@ -1,5 +1,5 @@
 import { defineCollection, z } from "astro:content";
-
+import { glob } from 'astro/loaders';
 
 const homeSchema = z.object({
   modelNumber: z.string(),
@@ -26,6 +26,14 @@ const homes = defineCollection({
   schema: homeSchema
 })
 
+const metadata = defineCollection({
+  loader: glob({ pattern: '*.json', base: './src/content/metadata'}),
+  schema: z.object({
+    id: z.string(),
+    value: z.string()
+  })
+});
 
 
-export const collections = { homes };
+
+export const collections = { homes, metadata };

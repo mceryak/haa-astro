@@ -3,6 +3,10 @@ import type { MenuItem } from "@/modules/nav/types";
 
 import Navbar from "@/modules/nav/Navbar.astro";
 
+import { getEntry } from "astro:content";
+
+const phone = (await getEntry('metadata', 'phone'))?.data.value ?? '';
+
 const menuItems: MenuItem[] = [
   {
     label: "Homes",
@@ -25,4 +29,4 @@ const menuItems: MenuItem[] = [
 const { activePage } = Astro.props;
 ---
 
-<Navbar phone="333-333-3333" menuItems={menuItems} activePage={activePage} />
+<Navbar phone={phone} menuItems={menuItems} activePage={activePage} />
