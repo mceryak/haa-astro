@@ -14,11 +14,12 @@ const homes = (await getCollection("homes")).map((home) => home.data);
 const filters = getHomeFilters(homes);
 ---
 
-<Layout>
+<Layout >
+  Home
   <!-- <img
     src="https://michaelceryak.com/cdn-cgi/image/width=80,quality=75/https://cdn.michaelceryak.com/image/r2Image1.png"
   /> -->
-  <div
+  <!-- <div
     class="relative w-full h-[500px]  bg-[url(/images/hero-temp.jpg)]  bg-cover bg-center"
   >
     <div class="absolute top-0 left-0 w-full h-full bg-black/50">
@@ -26,9 +27,6 @@ const filters = getHomeFilters(homes);
         class="flex flex-col justify-center items-center gap-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
       >
       <h1 class="text-zinc-100 font-light text-5xl italic text-center">Find Your Dream Home Today!</h1>
-      <!-- <FiltersBar filters={[{field: 'type', label: 'Type', options: ['Manufactured', 'Modular', 'Park Model']}]}/> -->
-       
-      
       <form action="homes" class="p-4 rounded-3xl bg-white flex gap-2 items-center justify-center">
         {filters.map(filter => (<HomePageSearchFilter filter={filter} />))}
         <button
@@ -42,6 +40,6 @@ const filters = getHomeFilters(homes);
       </div>
     </div>
 
-  </div>
+  </div> -->
   <!-- <div class="h-70 w-full bg-[url('/svgs/footer-bg1.svg')] bg-cover bg-center bg-fixed"></div> -->
 </Layout>

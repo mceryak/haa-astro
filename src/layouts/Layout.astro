@@ -6,7 +6,7 @@ import '@fontsource-variable/outfit';
 
 interface Props {
   bgClass?: string
-  activePage: 'Contact' | 'About' | 'FAQ' | 'Finance' | 'Services' | 'Carports' | 'Homes' | ''
+  activePage?: 'Contact' | 'About' | 'FAQ' | 'Finance' | 'Services' | 'Carports' | 'Homes' | ''
 }
 
 const { bgClass="bg-white", activePage='' } = Astro.props;
