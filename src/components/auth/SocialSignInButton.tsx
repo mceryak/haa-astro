@@ -5,6 +5,9 @@ import { socialSignIn } from "@/lib/auth-client";
 import { useState } from "react";
 import Spinner from "../reusable/Spinner";
 
+
+export const prerender = false;
+
 export default function SocialSignInButton({ providers }: { providers: SocialProvider[] }) {
   const [isLoading, setIsLoading] = useState(false);
 
