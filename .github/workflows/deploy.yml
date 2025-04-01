@@ -41,3 +41,11 @@ jobs:
 
       - name: Run deploy script
         run: npm run deploy
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: "haa-astro"
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          directory: "dist"
