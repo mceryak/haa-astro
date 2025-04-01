@@ -1,6 +1,6 @@
 ---
 export const prerender = false;
-import ProfileIcon from "@/modules/icons/ProfileIcon.astro";
+import { Icon } from "astro-icon/components";
 
 const { session } = Astro.locals;
 const hasSession = !!session;
@@ -14,7 +14,7 @@ const label = hasSession ? "Profile" : "Sign In";
 >
   <a id="profile-link" href={hasSession ? "/profile" : "/sign-in"}>
     <div class="flex gap-2 items-center">
-      <ProfileIcon />
+      <Icon name="mdi:account" class="text-3xl" />
       <label
         for="profile-link"
         id="profile-link-label"

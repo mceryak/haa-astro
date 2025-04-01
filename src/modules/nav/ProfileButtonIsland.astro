@@ -1,11 +1,12 @@
 ---
 import ProfileButton from "./ProfileButton.astro";
-import ProfileIcon from "../icons/ProfileIcon.astro";
+import { Icon } from "astro-icon/components";
 ---
+
 
 <ProfileButton server:defer>
   <div class="flex gap-2" slot="fallback">
-    <ProfileIcon />
+    <Icon name="mdi:account" class="text-3xl" />
     <span class="w-15"></span>
   </div>
 </ProfileButton>
