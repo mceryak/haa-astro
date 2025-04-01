@@ -15,7 +15,7 @@ import Layout from "../layouts/Layout.astro";
     class="flex flex-col gap-4 items-center m-auto my-20 p-5 w-150 bg-zinc-100 rounded-3xl"
   >
     <h1 class="text-2xl font-bold">Sign in to bookmark your favorite homes</h1>
-    <GSignInButton providers={["google", "facebook"]} client:only="react" />
+    <GSignInButton providers={["google", "facebook"]} client:load />
     <!-- <GSignInButton providerId="facebook" client:load /> -->
   </div>
 </Layout>
