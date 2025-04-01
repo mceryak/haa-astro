@@ -1,24 +1,25 @@
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import type { SocialProvider } from "@/lib/auth-client";
-import { socialSignIn } from "@/lib/auth-client";
+// import { socialSignIn } from "@/lib/auth-client";
 import { useState } from "react";
 import Spinner from "../reusable/Spinner";
 
 
-export const prerender = false;
+// export const prerender = false;
 
 export default function SocialSignInButton({ providers }: { providers: SocialProvider[] }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const signIn = (provider: SocialProvider) => {
     setIsLoading(true);
-    socialSignIn(provider)
-      .then(() => {})
-      .catch(err => {
-        // TODO: handle error
-        console.log(err);
-      })
+    console.log('signing in to', provider);
+    // socialSignIn(provider)
+    //   .then(() => {})
+    //   .catch(err => {
+    //     // TODO: handle error
+    //     console.log(err);
+    //   })
   }
 
   if (isLoading) {
