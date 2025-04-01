@@ -3,8 +3,9 @@ import "../../styles/global.css";
 
 import { Icon } from "astro-icon/components";
 import MenuItemLink from "./MenuItemLink.astro";
-import ProfileButtonIsland from "./ProfileButtonIsland.astro";
+// import ProfileButtonIsland from "./ProfileButtonIsland.astro";
 import type { MenuItem } from "@/modules/nav/types";
+import ProfileBtnWrapper from "./ProfileBtn";
 
 interface Props {
   menuItems: MenuItem[]
@@ -85,7 +86,8 @@ const { menuItems, phone="333-333-3333", activePage }: Props = Astro.props;
     </div>
 
     <div class="hidden lg:flex items-center whitespace-nowrap">
-      <ProfileButtonIsland />
+      <!-- <ProfileButtonIsland /> -->
+       <ProfileBtnWrapper client:load/>
     </div>
   </ul>
 </nav>
