@@ -13,9 +13,9 @@ function ProfileBtn() {
   const { session } = useContext(SessionContext);
   return session 
   ? (
-    <button>Profile</button>
+    <a href='/profile'>Profile</a>
   ) 
   : (
-    <button>Sign In</button>
+    <a href='/sign-in'>Sign In</a>
   );
 }
