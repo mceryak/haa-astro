@@ -26,8 +26,8 @@ const homes = defineCollection({
   schema: homeSchema
 })
 
-const metadata = defineCollection({
-  loader: glob({ pattern: '*.json', base: './src/content/metadata'}),
+const company_information = defineCollection({
+  loader: glob({ pattern: '*.json', base: './src/content/company_information'}),
   schema: z.object({
     id: z.string(),
     value: z.string()
@@ -36,4 +36,4 @@ const metadata = defineCollection({
 
 
 
-export const collections = { homes, metadata };
+export const collections = { homes, company_information };

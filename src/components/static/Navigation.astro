@@ -5,7 +5,7 @@ import Navbar from "@/modules/nav/Navbar.astro";
 
 import { getEntry } from "astro:content";
 
-const phone = (await getEntry('metadata', 'phone'))?.data.value ?? '';
+const phone = (await getEntry('company_information', 'phone'))?.data.value ?? '';
 
 const menuItems: MenuItem[] = [
   {
