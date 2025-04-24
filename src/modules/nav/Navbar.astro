@@ -9,11 +9,11 @@ import ProfileBtnWrapper from "./ProfileBtn";
 
 interface Props {
   menuItems: MenuItem[]
-  phone?: string
+  phone?: string | null
   activePage: string
 }
 
-const { menuItems, phone="333-333-3333", activePage }: Props = Astro.props;
+const { menuItems, phone='', activePage }: Props = Astro.props;
 ---
 
 <a href=`tel:${phone}` aria-label=`Call us at ${phone}`>

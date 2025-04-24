@@ -5,7 +5,9 @@ import Navbar from "@/modules/nav/Navbar.astro";
 
 import { getEntry } from "astro:content";
 
-const phone = (await getEntry('company_information', 'phone'))?.data.value ?? '';
+// const phone = (await getEntry('company_information', 'phone'))?.data.value ?? '';
+const kv = Astro.locals.runtime.env.COMPANY_INFO_KV;
+const phone = await kv.get('phone');
 
 const menuItems: MenuItem[] = [
   {

@@ -2,6 +2,7 @@
 
 interface Env {
 	HAA_KV: KVNamespace;
+	COMPANY_INFO_KV: KVNamespace;
 	GOOGLE_AUTH_CLIENT: string;
 	GOOGLE_AUTH_SECRET: string;
 	GOOGLE_AUTH_CALLBACK_URL: string;

@@ -17,6 +17,10 @@
     {
       "binding": "HAA_KV",
       "id": "849d1a6b3e454c79a70f2e5b415ff836"
+    },
+    {
+      "binding": "COMPANY_INFO_KV",
+      "id": "6e45cc783f2a4b1ca22f9a21d5512a0c"
     }
   ],
   "d1_databases": [

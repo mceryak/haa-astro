@@ -10,6 +10,10 @@ app.use(json());
 let previewProcess;
 app.get("/preview", (req, res) => {
   console.log('Preview Request Received.');
+  const previewPort = 8788;
+  exec(`lsof -nti:${previewPort} | xargs kill -9`, (err, stdout, stderr) => {
+    console.log('killed the previewPort: ' + previewPort);
+  });
 
   exec("./preview.sh", (err, stdout, stderr) => {
   // exec("preview.cmd", (err, stdout, stderr) => {
