@@ -2,15 +2,16 @@ import { config, fields, collection } from '@keystatic/core';
 
 export default config({
   storage: {
-    // kind: 'local',
-    kind: 'github',
-    repo: {
-      owner: 'mceryak',
-      name: 'haa-astro'
-    }
+    kind: 'local',
+    // kind: 'github',
+    // repo: {
+    //   owner: 'mceryak',
+    //   name: 'haa-astro'
+    // }
   },
+  
   collections: {
-    posts: collection({
+    company_info: collection({
       label: 'Company Information',
       slugField: 'id',
       columns: ['value'],
