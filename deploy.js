@@ -1,74 +1,49 @@
 import express, { json } from 'express';
 import { exec, spawn } from "child_process";
+// import path from 'path';
+import { readFileSync, writeFileSync } from 'fs';
 
 const app = express();
+const PAGES_NAME = 'haa-astro';
+const PAGES_PREVIEW_NAME = 'haa-astro-preview';
 const PORT = 8888; // The port your local listener will run on
+
+const setWranglerName = (isPreview=false) => {
+  const wranglerConfig = JSON.parse(readFileSync('./wrangler.json', 'utf8'));
+  wranglerConfig.name = isPreview ? PAGES_PREVIEW_NAME : PAGES_NAME;
+  writeFileSync('./wrangler.json', JSON.stringify(wranglerConfig, null, 2));
+}
 
 // Middleware to parse JSON bodies (if needed)
 app.use(json());
 
-let previewProcess;
+// let previewProcess;
 app.get("/preview", (req, res) => {
-  console.log('Preview Request Received.');
-  const previewPort = 8788;
-  exec(`lsof -nti:${previewPort} | xargs kill -9`, (err, stdout, stderr) => {
-    console.log('killed the previewPort: ' + previewPort);
-  });
+  console.log('preview request received');
+  setWranglerName(true);
+  console.log('wrangler.json updated');
 
-  exec("./preview.sh", (err, stdout, stderr) => {
-  // exec("preview.cmd", (err, stdout, stderr) => {
+  exec("./preview.sh", (err, stdout, stderr) => { // mac
+  // exec("preview.cmd", (err, stdout, stderr) => { // windows
       if (err) {
-        console.error("Preview failed:", stderr);
+        console.error("Preview Deployment failed:", stderr);
         return res.status(500).json({ success: false, output: stdout, error: stderr }) //.send(`Error: ${stderr}`);
       }
-      console.log("Ready to start preview. ", stdout);
-      previewProcess = spawn('npm', ['run', 'preview'], {
-        stdio: 'pipe',
-        shell: true,
-      });
-      previewProcess.stderr.on('data', (data) => {
-        console.error('Error loading preview: ' + data.toString());
-      });
-      previewProcess.stdout.on('data', (data) => {
-        const text = data.toString();
-        console.log('[stdout]', text);
-
-        // Example: look for "Local" URL
-        if (text.includes('localhost:')) {
-          const errorMatch = text.match(/Address already in use \(.*\)/);
-          const match = text.match(/http:\/\/localhost:\d+/);
-          if (errorMatch) {
-            console.log(errorMatch[0])
-          }
-          if (match) {
-            console.log('Server started at:', match[0]);
-            // res.json({ success: true, serverRunningAtUrl: match[0] });
-            res.redirect(match[0]);
-          }
-        }
-      });
+      console.log("Deployment successful:", stdout);
+      return res.redirect('https://preview.michaelceryak.com');
     });
+  
 });
-
-function shutdown() {
-  console.log('\n🛑 Shutting down Express and preview server...');
-  if (previewProcess) {
-    previewProcess.kill('SIGTERM'); // or 'SIGINT'
-  }
-  process.exit(0);
-}
-
-process.on('SIGINT', shutdown);
-process.on('SIGTERM', shutdown);
 
 
 app.get("/deploy", (req, res) => {
   console.log("Deployment request received!");
-  console.log(typeof exec);
+  setWranglerName(false);
+  console.log('wrangler.json updated');
   // return res.json({ success: true });
-  // Run the deploy script
-  // exec("./deploy.sh", (err, stdout, stderr) => {
-  exec("deploy.cmd", (err, stdout, stderr) => {
+
+  // exec("./deploy.sh", (err, stdout, stderr) => { // mac
+  exec("deploy.cmd", (err, stdout, stderr) => { // windows
   // exec.exec("ls", (err, stdout, stderr) => {
     if (err) {
       console.error("Deployment failed:", stderr);
