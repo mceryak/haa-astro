@@ -27,7 +27,8 @@ export default function Homes({ homes, thumbUrlMap, cardClass }: Props) {
 
   const thisPageHomes = filteredHomes.slice(startIdx, stopIdx);
 
-  useEffect(() => { totalPages.set(total) }, [total]);
+  useEffect(() => { window.scrollTo(0, 0); }, [$curPage]);
+  useEffect(() => { totalPages.set(total); }, [total]);
   
   return thisPageHomes.map((home) => (
     <li key={home.modelNumber} className={cardClass}>
