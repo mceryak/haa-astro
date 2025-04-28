@@ -1,20 +1,17 @@
 ---
 
+interface Props {
+  pdfName: string
+}
+
+const { pdfName } = Astro.props;
+const pdfUrl = `https://cdn.michaelceryak.com/image/${encodeURIComponent(pdfName)}`;
 ---
 
-<article class="w-full md:w-120 ">
-  <!-- <h2 class="">Floor Plan (Printable)</h2> -->
-  <a
-    href="https://cdn.michaelceryak.com/image/Innovation-1856H-Floorplan.pdf"
-    target="_blank"
-  >
-  <figure class="items-center flex flex-col">
-    <img
-      id="floor-plan"
-      src="https://cdn.michaelceryak.com/image/Innovation-1856H-Floorplan.jpg"
-      alt="Printable Floor Plan"
-    />
-    <figcaption>Click for printable PDF</figcaption>
-  </figure>
-  </a>
+<article class="w-full px-10 ">
+  <iframe
+    src={pdfUrl}
+    class="w-full h-90 lg:h-150"
+    title="PDF Preview"
+  />
 </article>

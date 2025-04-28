@@ -28,38 +28,12 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { modelNumber } = Astro.params;
 
 const { home } = Astro.props;
-
-const photos = [
-  {
-    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bath-1.jpg",
-    width: 4,
-    height: 3,
-  },
-  {
-    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bath-2.jpg",
-    width: 1,
-    height: 1,
-  },
-  {
-    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bedroom-1.jpg",
-    width: 1,
-    height: 1,
-  },
-  {
-    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Bedroom-2.jpg",
-    width: 1,
-    height: 1,
-  },
-  {
-    src: "https://cdn.michaelceryak.com/image/Innovation-1856H-Entry.jpg",
-    width: 1,
-    height: 1,
-  },
-];
+const gallery = (await getCollection('related_files', ({ data }) => data.parentKey === modelNumber ));
+const galleryUrls = gallery.map(item => `https://cdn.michaelceryak.com/image/${encodeURIComponent(item.data.r2Name)}`)
 ---
 
 <Layout>
-  <Lightbox client:load photos={photos} aria-hidden="true" />
+  <Lightbox client:load photoUrls={galleryUrls} aria-hidden="true" />
   <div class="w-full flex flex-col items-center pb-10 px-5 md:px-7 lg:px-10">
     <section class="max-w-[88rem] flex flex-col w-full gap-5">
       <div
@@ -76,7 +50,7 @@ const photos = [
       </div>
       <Attributes home={home} />
 
-      <HomeTabs />
+      <HomeTabs photoUrls={galleryUrls} floorPlanName={home.floorPlanR2Name} walkthroughUrl={home.walkthroughURL}/>
     </section>
   </div>
 </Layout>

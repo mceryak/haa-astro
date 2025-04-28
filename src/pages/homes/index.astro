@@ -7,12 +7,19 @@ import Homes from "@/components/Homes";
 import FiltersBarButton from "@/modules/filters/static/FiltersBarButton.astro";
 import FiltersBar from "@/modules/filters/static/FiltersBar.astro";
 import { getHomeFilters } from "@/utils/filters";
+import PageNavigation from '@/modules/pagination/PageNavigation';
+import ResultsHeader from '@/modules/pagination/ResultsHeader';
 import type { Home } from "@/content.config";
 
 // TODO: undo this shit
-const homes: Home[] = await (await fetch('https://d1-http.mceryak.workers.dev/homes')).json();
-// const homes = (await getCollection("homes")).map((home) => home.data);
-
+// const homes: Home[] = await (await fetch('https://d1-http.mceryak.workers.dev/homes')).json();
+const relatedFiles = (await getCollection('related_files')).map(file => file.data);
+const homes = (await getCollection("homes")).map((home) => home.data);
+const thumbnailUrlMap = relatedFiles.toReversed().reduce((acc, file) => ({
+    ...acc, 
+    [file.parentKey]: `https://cdn.michaelceryak.com/image/${encodeURIComponent(file.r2Name)}`
+  }), {});
+// console.log('homes', homes);
 
 const filters = getHomeFilters(homes);
 ---
@@ -23,10 +30,13 @@ const filters = getHomeFilters(homes);
       <FiltersBar filters={filters} />
     </FiltersBarButton>
     <!-- <Homes client:load homes={homes.map((home) => home.data)} /> -->
-    <ul
-      class="max-w-[88rem]  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-10"
-    >
-      <Homes client:only="react" homes={homes} />
-    </ul>
+    
+    <section class="mt-5 flex flex-col gap-4 items-center">
+      <ResultsHeader client:only="react" />
+      <ul class="max-w-[88rem]  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-15 items-end my-5">
+        <Homes client:only="react" homes={homes} thumbUrlMap={thumbnailUrlMap} cardClass="bg-white rounded-sm transition-transform cursor-pointer shadow-2xl hover:scale-[102%]" />
+      </ul>
+      <PageNavigation client:only="react" />
+    </section>
   </div>
 </Layout>

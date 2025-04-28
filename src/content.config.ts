@@ -1,5 +1,8 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from 'astro/loaders';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const homeSchema = z.object({
   modelNumber: z.string(),
@@ -7,33 +10,65 @@ const homeSchema = z.object({
   sqft: z.number(),
   series: z.string(),
   beds: z.number(),
-  baths: z.number()
+  baths: z.number(),
+  floorPlanR2Name: z.string().nullable().optional(),
+  walkthroughURL: z.string().nullable().optional(),
+  onDisplay: z.number(),
+  manufacturer: z.string(),
+  createdDate: z.string(),
+  lastModifiedDate: z.string()
 });
 
+const relatedFileSchema = z.object({
+  id: z.string(),
+  parentKey: z.string(),
+  r2Name: z.string(),
+  tabName: z.string()
+});
+
+export type RelatedFile = z.infer<typeof relatedFileSchema>;
 export type Home = z.infer<typeof homeSchema>;
+
+const fetchData = async (path: string) => await fetch('https://d1-http.mceryak.workers.dev/' + path, { headers: { 'Authorization': `Bearer ${process.env.API_TOKEN}`}});
 
 const homes = defineCollection({
   // loader: file('/homes.json'),
   // loader: homesLoader(),
   loader: async () => {
-    const response = await fetch('https://d1-http.mceryak.workers.dev/homes');
+    const response = await fetchData('homes');
     const data = await response.json();
-    return data.map(home => ({
+    const mappedData = data.map(home => ({
+      ...home,
       id: home.modelNumber,
-      ...home
     }));
+    return mappedData;
   },
   schema: homeSchema
 })
 
 const company_information = defineCollection({
-  loader: glob({ pattern: '*.json', base: './src/content/company_information'}),
+  loader: async () => {
+    const response = await fetchData('company-info');
+    const data = await response.json();
+    return [{ ...data, id: 'company_info' }];
+  },
   schema: z.object({
-    id: z.string(),
-    value: z.string()
+    phone: z.string(),
+    email: z.string()
   })
 });
 
+const related_files = defineCollection({
+  loader: async () => {
+    const response = await fetchData('relatedFiles');
+    const data = await response.json();
+    return data.map(item => ({
+      ...item,
+      id: `${item.id}`
+    }));
+  },
+  schema: relatedFileSchema
+})
 
 
-export const collections = { homes, company_information };
+export const collections = { homes, company_information, related_files };

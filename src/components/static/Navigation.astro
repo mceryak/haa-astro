@@ -4,10 +4,15 @@ import type { MenuItem } from "@/modules/nav/types";
 import Navbar from "@/modules/nav/Navbar.astro";
 
 import { getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
 // const phone = (await getEntry('company_information', 'phone'))?.data.value ?? '';
-const kv = Astro.locals.runtime.env.COMPANY_INFO_KV;
-const phone = await kv.get('phone');
+const companyInfo = (await getCollection('company_information')).at(0)?.data;
+const { phone, email } = companyInfo;
+// const kv = Astro.locals.runtime.env.COMPANY_INFO_KV;
+// const { value: phone } = await (await fetch('https://d1-http.mceryak.workers.dev/company-info/phone')).json();
+// console.log('phone', phone);
+// const phone='';
 
 const menuItems: MenuItem[] = [
   {

@@ -34,6 +34,7 @@
     "astro": "^5.2.5",
     "astro-icon": "^1.1.5",
     "better-auth": "^1.1.19",
+    "dotenv": "^16.5.0",
     "drizzle-orm": "^0.39.3",
     "express": "^5.1.0",
     "kysely": "^0.27.5",

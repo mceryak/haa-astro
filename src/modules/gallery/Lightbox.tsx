@@ -8,7 +8,7 @@ import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 
 
-export default function LightboxCmp({ photos }) {
+export default function LightboxCmp({ photoUrls }: { photoUrls: string[] }) {
   const $lightboxState = useStore(lightboxState);
   const { isOpen, startingIndex } = $lightboxState;
 
@@ -17,6 +17,6 @@ export default function LightboxCmp({ photos }) {
     plugins={[Zoom, Fullscreen]}
     index={startingIndex}
     close={() => lightboxState.set({ isOpen: false, startingIndex: 0 })}
-    slides={photos.map(p => ({ src: p.src }))}
+    slides={photoUrls.map(url => ({ src: url }))}
   />;
 }

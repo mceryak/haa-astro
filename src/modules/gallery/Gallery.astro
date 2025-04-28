@@ -2,12 +2,12 @@
 import GalleryItem from './GalleryItem.astro';
 
 interface Props {
-  photos: { src: string }[]
+  photoUrls: string[]
 }
 
-const { photos }: Props = Astro.props;
+const { photoUrls }: Props = Astro.props;
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 items-center">
-  {photos.map((photo, idx) => <GalleryItem src={photo.src} idx={idx} />)}
+  {photoUrls.map((url, idx) => <GalleryItem src={url} idx={idx} />)}
 </div>
