@@ -1,0 +1,24 @@
+---
+import Homes from "@/components/Homes";
+import Layout from "@/layouts/Layout.astro";
+import FiltersBar from "@/modules/filters/static/FiltersBar.astro";
+import FiltersBarButton from "@/modules/filters/static/FiltersBarButton.astro";
+import PageNavigation from "@/modules/pagination/PageNavigation";
+import { getHomeFilters } from "@/utils/filters";
+import { getCollection } from "astro:content";
+
+const homes = (await getCollection("homes")).map((home) => home.data);
+const filters = getHomeFilters(homes);
+---
+
+<Layout bgClass="bg-slate-50" activePage="Homes">
+  <div class="w-full flex flex-col items-center">
+    <FiltersBarButton>
+      <FiltersBar filters={filters} />
+    </FiltersBarButton>
+    <ul class="max-w-[88rem]  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-15 items-end my-5">
+      <Homes client:only="react" homes={homes} />
+    </ul>
+    <PageNavigation client:only="react" />
+  </div>
+</Layout>

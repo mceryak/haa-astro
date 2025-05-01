@@ -6,14 +6,13 @@ import { applyFilters } from "@/modules/filters/utils/applyFilters";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { curPage, totalPages } from "@/modules/pagination/store";
 import { useEffect } from "react";
+import HomeCard from "./HomeCard";
 
 type Props = {
   homes: Home[]
-  cardClass: string,
-  thumbUrlMap: { [key: string]: string }
 }
 
-export default function Homes({ homes, thumbUrlMap, cardClass }: Props) {
+export default function Homes({ homes }: Props) {
   // const [curPage, setCurPage] = useState(1);
   const $filters = useStore(queryParams);
   const $curPage = useStore(curPage);
@@ -31,20 +30,6 @@ export default function Homes({ homes, thumbUrlMap, cardClass }: Props) {
   useEffect(() => { totalPages.set(total); }, [total]);
   
   return thisPageHomes.map((home) => (
-    <li key={home.modelNumber} className={cardClass}>
-      <a
-        href={`/homes/${home.modelNumber}`}
-      >
-        <img src={thumbUrlMap[home.modelNumber]} />
-        <div className="p-3">
-          <h3 className="font-bold text-2xl pb-2">{home.modelNumber}</h3>
-          <div className="flex gap-2">
-            <p className="border-r-1 pr-2">{home.beds} beds</p>
-            <p className="border-r-1 pr-2">{home.baths} baths</p>
-            <p>{home.sqft} sq. ft.</p>
-          </div>
-        </div>
-      </a>
-    </li>
+    <HomeCard home={home} />
   ));
 }

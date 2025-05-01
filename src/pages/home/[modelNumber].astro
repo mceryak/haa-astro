@@ -14,6 +14,7 @@ import Attributes from "@/components/Home/Attributes.astro";
 import RequestInfoButton from "@/components/Home/RequestInfoButton.astro";
 import HomeTabs from "@/components/Home/HomeTabs.astro";
 import PageTitle from "@/components/reusable/PageTitle.astro";
+import { getR2Url } from "@/utils/config";
 
 
 export const getStaticPaths = (async () =>
@@ -29,7 +30,7 @@ const { modelNumber } = Astro.params;
 
 const { home } = Astro.props;
 const gallery = (await getCollection('related_files', ({ data }) => data.parentKey === modelNumber ));
-const galleryUrls = gallery.map(item => `https://cdn.michaelceryak.com/image/${encodeURIComponent(item.data.r2Name)}`)
+const galleryUrls = gallery.map(item => getR2Url(item.data.r2Name));
 ---
 
 <Layout>

@@ -1,0 +1,112 @@
+---
+export const prerender = true;
+
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Homes from "@/components/Homes";
+import FiltersBarButton from "@/modules/filters/static/FiltersBarButton.astro";
+import FiltersBar from "@/modules/filters/static/FiltersBar.astro";
+import { getHomeFilters } from "@/utils/filters";
+import PageNavigation from "@/modules/pagination/PageNavigation";
+import ResultsHeader from "@/modules/pagination/ResultsHeader";
+import type { Home } from "@/content.config";
+import type { Page } from "astro";
+import { HOME_CARD_CLASS } from "@/ClientOnlyTailwindClasses";
+import { getR2Url } from "@/utils/config";
+import { Icon } from "astro-icon/components";
+
+// TODO: undo this shit
+// const homes: Home[] = await (await fetch('https://d1-http.mceryak.workers.dev/homes')).json();
+
+export async function getStaticPaths({ paginate }) {
+  const homes = (await getCollection("homes")).map((home) => home.data);
+
+  return paginate(homes, { pageSize: 12 });
+}
+
+const homes = (await getCollection("homes")).map((home) => home.data);
+
+const { page }: { page: Page<Home> } = Astro.props;
+
+const filters = getHomeFilters(homes);
+---
+
+<Layout bgClass="bg-slate-50" activePage="Homes">
+  <div class="w-full flex flex-col items-center">
+    <FiltersBarButton>
+      <FiltersBar filters={filters} />
+    </FiltersBarButton>
+    <!-- <Homes client:load homes={homes.map((home) => home.data)} /> -->
+
+    <section class="mt-5 flex flex-col gap-4 items-center">
+      <h1>Page {page.currentPage} of {page.lastPage}</h1>
+      <ul
+        class="max-w-[88rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-15 items-end my-5"
+      >
+        {
+          page.data.map((home) => (
+            <li class={HOME_CARD_CLASS}>
+              <a href={`/home/${home.modelNumber}`}>
+                <img src={getR2Url(home.thumbnailR2 ?? '')} />
+                <div class="p-3">
+                  <h3 class="font-bold text-2xl pb-2">{home.modelNumber}</h3>
+                  <div class="flex gap-2">
+                    <p class="border-r-1 pr-2">{home.beds} beds</p>
+                    <p class="border-r-1 pr-2">{home.baths} baths</p>
+                    <p>{home.sqft} sq. ft.</p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="flex gap-2 items-center">
+        <li class="w-10 flex justify-end">
+          {
+            page.currentPage > 1 && (
+              <a
+                class={`bg-slate-200 p-2 rounded-sm ${page.currentPage === 1 ? "opacity-20" : "cursor-pointer"}`}
+                href={`/homes/${page.currentPage - 1}`}
+              >
+                <Icon name="mdi:chevron-left" />
+              </a>
+            )
+          }
+        </li>
+
+        {
+          Array.from({ length: page.lastPage }, (_, i) => i + 1).map(
+            (pageNum) => (
+              <li>
+                <a
+                  class={`p-1 px-3 rounded-sm  ${page.currentPage === pageNum ? "bg-slate-500 text-white" : "bg-slate-200"} cursor-pointer`}
+                  href={`/homes/${pageNum}`}
+                >
+                  {pageNum}
+                </a>
+              </li>
+            )
+          )
+        }
+        <li class="w-10 flex justify-end">
+          {
+            page.currentPage < page.lastPage && (
+              <a
+                class={`bg-slate-200 p-2 rounded-sm ${page.currentPage === page.lastPage ? "opacity-20" : "cursor-pointer"}`}
+                href={`/homes/${page.currentPage + 1}`}
+              >
+                <Icon name="mdi:chevron-right" />
+              </a>
+            )
+          }
+        </li>
+      </ul>
+      <!-- <ResultsHeader client:only="react" />
+      <ul class="max-w-[88rem]  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-15 items-end my-5">
+        <Homes client:only="react" homes={homes} />
+      </ul>
+      <PageNavigation client:only="react" /> -->
+    </section>
+  </div>
+</Layout>
