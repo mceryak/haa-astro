@@ -10,6 +10,7 @@ import type { FormItem, FormState, FormActionResult } from "../types";
 export type FormInput = {
   formItems: FormItem[], 
   defaultValues?: { [key: string]: string | null | undefined }, 
+  
   action: (formData: FormData) => Promise<FormActionResult>
 }
 

@@ -1,0 +1,15 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import MortgageCalculatorInputs from '@/modules/mortgageCalculator/MortgageCalculatorInputs';
+import MortgageCalculatorResults from "@/modules/mortgageCalculator/MortgageCalculatorResults";
+
+---
+
+<Layout>
+  <section class="m-10 flex gap-5">
+    <!-- <div class="w-70"> -->
+      <MortgageCalculatorInputs client:load />
+    <!-- </div> -->
+    <!-- <MortgageCalculatorResults client:load /> -->
+  </section>
+</Layout>

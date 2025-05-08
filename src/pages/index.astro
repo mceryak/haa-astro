@@ -7,6 +7,23 @@ import HomePageSearchFilter from "@/components/HomePageSearchFilter.astro";
 import { getCollection } from "astro:content";
 // import { getFilters } from "@/modules/filters/utils/getFilters";
 import { getHomeFilters } from "@/utils/filters";
+import Testimonials from "@/modules/testimonials/Testimonials.astro";
+import OurProcess from "@/modules/processCmp/OurProcess.astro";
+import FeaturedHomes from "@/components/static/FeaturedHomes.astro";
+import BackgroundImage from "@/components/reusable/BackgroundImage.astro";
+import SectionContent from "@/components/reusable/SectionContent.astro";
+import SectionTitle from "@/components/reusable/section/SectionTitle.astro";
+import EdgeShadow from "@/components/reusable/EdgeShadow.astro";
+import Section from "@/components/reusable/section/Section.astro";
+import CTARow from "@/components/reusable/section/CTARow.astro";
+import CTA from "@/components/reusable/section/CTA.astro";
+import Emoji from "@/modules/emojis/Emoji.astro";
+import SectionItem from "@/components/reusable/section/SectionItem.astro";
+import GridLinks from "@/components/GridLinks.astro";
+import GridLink from "@/components/GridLink.astro";
+import TestimonialSnippets from "@/modules/testimonials/TestimonialSnippets";
+import HomeCard from "@/components/HomeCard";
+import AmericanFlags from "@/components/reusable/AmericanFlags.astro";
 // export const prerender = false;
 // // // const response = await fetch("https://d1-http.mceryak.workers.dev/homes");
 // // // const homes = await response.json();
@@ -15,27 +32,118 @@ const homes = (await getCollection("homes")).map((home) => home.data);
 const filters = getHomeFilters(homes);
 ---
 
-<Layout >
+<Layout>
   <div
-    class="relative w-full h-[500px]  bg-[url(/images/hero-temp.jpg)]  bg-cover bg-center"
+    class="relative w-full h-[88vh] bg-[url(/images/hero-temp.jpg)] bg-cover bg-center"
   >
     <div class="absolute top-0 left-0 w-full h-full bg-black/50">
       <div
-        class="flex flex-col justify-center items-center gap-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+        class="flex flex-col justify-center items-center gap-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       >
-      <h1 class="text-zinc-100 font-light text-5xl italic text-center">Find Your Dream Home Today!</h1>
-      <form action="homes" class="p-4 rounded-3xl bg-white flex gap-2 items-center justify-center">
-        {filters.map(filter => (<HomePageSearchFilter filter={filter} />))}
-        <button
-        type="submit"
-          class="cursor-pointer bg-sky-800 rounded-3xl hover:scale-110 transition-transform"
+        <h1 class="text-zinc-100 font-light text-5xl italic text-center">
+          Find Your Dream Home Today!
+        </h1>
+        <form
+          action="homes"
+          class="p-4 rounded-3xl bg-white flex gap-2 items-center justify-center"
         >
-          <Icon name="mdi:search" class="w-11 h-11 text-zinc-200 p-2" />
-        </button>
-      </form>
-          
+          {filters.map((filter) => <HomePageSearchFilter filter={filter} />)}
+          <button
+            type="submit"
+            class="cursor-pointer bg-sky-800 rounded-3xl hover:scale-110 transition-transform"
+          >
+            <Icon name="mdi:search" class="w-11 h-11 text-zinc-200 p-2" />
+          </button>
+        </form>
       </div>
     </div>
-
   </div>
+
+  <BackgroundImage image="plaster">
+    <div class="bg-white/90">
+      <Section id="Biography" topShadow contentWidth="small">
+        <AmericanFlags />
+        <SectionTitle slot="title"
+          >Serving Manufactured & Mobile Homes to Texas Residents Since 2002</SectionTitle
+        >
+
+        <p class="mb-6 z-10">
+          Homes Across America offers affordable manufactured, modular, and
+          tiny homes in Willis, TX and surrounding areas. Locally owned, factory
+          direct, and built to fit your life — not just what's on the lot.
+        </p>
+
+        <div class="grid grid-cols-1 gap-5">
+          <SectionItem emoji="home" title="Custom Homes">
+            Choose your layout, features, and colors — no pressure to take a lot
+            model.
+          </SectionItem>
+          <SectionItem emoji="pin" title="Local Expertise">
+            Serving Texas with land/home loan options - we can help you find
+            land if needed.
+          </SectionItem>
+          <SectionItem emoji="hammer-and-wrench" title="Trusted Setup">
+            We partner with professional contractors for a smooth delivery and
+            install.
+          </SectionItem>
+          <SectionItem emoji="dollar-sign" title="Wholesale Pricing">
+            We beat any written competitor price — guaranteed.
+          </SectionItem>
+        </div>
+
+        <p class="text-2xl font-semibold mt-8">
+          Let's build the home that fits you.
+        </p>
+
+        <CTARow>
+          <CTA href="/contact" fullWidth>Get in Touch</CTA>
+          <CTA href="/finance" color="green" fullWidth>Financing Options</CTA>
+        </CTARow>
+      </Section>
+    </div>
+  </BackgroundImage>
+  <TestimonialSnippets client:load />
+  <!-- </BackgroundImage> -->
+
+  <BackgroundImage image="plaster1">
+  <div class="bg-gradient-to-b from-white/50 to-slate-500/30">
+    <Section id="grid links">
+      <SectionTitle>Shop</SectionTitle>
+      <GridLinks>
+        <GridLink item={{label: "Manufactured", href: "/homes?type=Manufactured", image: "gridlinks/manufactured", description: "View our selection of double-wide and single-wide mobile homes ranging from 1111 - 2222 sq. ft."}} />
+        <GridLink item={{label: "Modular", href: "/homes?type=Manufactured", image: "gridlinks/manufactured", description: "View our selection of double-wide and single-wide mobile homes ranging from 1111 - 2222 sq. ft."}} />
+        <GridLink item={{label: "Tiny", href: "/homes?type=Manufactured", image: "gridlinks/manufactured", description: "View our selection of double-wide and single-wide mobile homes ranging from 1111 - 2222 sq. ft."}} />
+        <GridLink item={{label: "Carport", href: "/homes?type=Manufactured", image: "gridlinks/manufactured", description: "View our selection of double-wide and single-wide mobile homes ranging from 1111 - 2222 sq. ft."}} />
+        
+      </GridLinks>
+    </Section>
+  </div>
+</BackgroundImage>
+  <!-- <BackgroundImage image="plaster1">
+  <div class="bg-sky-200/60">
+    <Section id="our process" contentWidth="small"> -->
+      <OurProcess />
+    <!-- </Section>
+  </div>
+</BackgroundImage> -->
+
+  <!-- <BackgroundImage image="plaster"  > -->
+    <!-- <BackgroundImage image="plaster1">
+  <div class="bg-gradient-to-b from-sky-900/80 to-sky-800/90">
+    <Testimonials />
+  </div>
+</BackgroundImage> -->
+  <BackgroundImage image="plaster1" >
+    <div class="bg-white/70 md:bg-white/30">
+      <Section id="featured homes">
+        <SectionTitle>Featured Homes</SectionTitle>
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 py-5">
+          {homes.filter((h) => h.isFeatured === 1).map((home) => <HomeCard home={home} />)}
+        </ul>
+        <CTA href="/homes" color="gray">Browse All Homes</CTA>
+      </Section>
+      <!-- <FeaturedHomes homes={homes.filter((h) => h.isFeatured === 1)} /> -->
+    </div>
+  </BackgroundImage>
+  <!-- </BackgroundImage> -->
 </Layout>
