@@ -18,7 +18,7 @@ type Props = {
 
 export default function Table({ columns, rows, hideColumns=false, firstColHighlight=false }: Props) {
   return (
-    <table className="">
+    <table className="bg-white">
       {!hideColumns && 
         <thead>
           <tr>

@@ -1,10 +1,126 @@
 ---
+import AmericanFlags from "@/components/reusable/AmericanFlags.astro";
+import BackgroundImage from "@/components/reusable/BackgroundImage.astro";
+import CTA from "@/components/reusable/section/CTA.astro";
+import Section from "@/components/reusable/section/Section.astro";
+import SectionTitle from "@/components/reusable/section/SectionTitle.astro";
 import Layout from "@/layouts/Layout.astro";
+import Notepad from "@/modules/listVariants/notepad/Notepad.astro";
+import Testimonials from "@/modules/testimonials/Testimonials.astro";
+import { Icon } from "astro-icon/components";
 // import LeafletMap from "@/modules/maps/LeafletMap";
 
+type TeamMember = {
+  name: string;
+  title: string;
+  imageUrl: string;
+};
 
+const teamMembers: TeamMember[] = [
+  { name: "Bob", title: "Co-Founder", imageUrl: "/images/bobwood.jpg" },
+  {
+    name: "Chris",
+    title: "Co-Founder",
+    imageUrl: "/images/chris.jpg",
+  },
+];
+
+const values: string[] = ["Do it Right", "Trust", "People Over Profit"];
+
+const wontDo: string[] = [
+  "Push lot models that don't fit your needs",
+  "Take the easiest path for ourselves",
+  "Pressure you into fast decisions",
+  "Push customizations that you don't want or need",
+  "Disappear after the sale",
+];
+const willDo: string[] = [
+  "Help customize your home for your land and lifestyle",
+  "Focus on your goals, not just closing a sale",
+  "Offer a pressure-free, informative experience",
+  "Let you know your options without pushing",
+  "Stay in touch after move-in",
+]
 ---
 
 <Layout activePage="About">
-  <!-- <LeafletMap client:only /> -->
+  <BackgroundImage image="homeExterior">
+    <div
+      class="bg-black/50 text-center p-15 md:p-25 lg:p-30 text-white flex flex-col items-center"
+    >
+      <h1 class="text-2xl md:text-4xl lg:text-6xl max-w-190 leading-normal">
+        At <span class="text-blue-400">Homes Across America</span>, we do it <span
+          class="text-red-500">different</span
+        >.
+      </h1>
+    </div>
+  </BackgroundImage>
+  <div class="">
+    <Section id="who we are" topShadow contentWidth="small">
+      <AmericanFlags />
+      <SectionTitle>Who We Are</SectionTitle>
+      <p class="z-10">
+        At Homes Across America, we're proud to be a locally owned and operated
+        manufactured & modular home dealership based in Willis, TX. With over 15
+        years of experience, we've been dedicated to helping families across
+        Texas find affordable, high-quality homes that suit their unique wants
+        and needs.
+      </p>
+    </Section>
+  </div>
+  <!-- <Section id="company values">
+    <SectionTitle>Our Values</SectionTitle>
+
+  </Section> -->
+  <BackgroundImage image="plaster1">
+    <div class="bg-gradient-to-b from-white/70 to-red-300/20">
+      <Section id="what sets us apart">
+        <SectionTitle>What Sets Us Apart</SectionTitle>
+
+        <div class="flex flex-col lg:flex-row gap-10 mt-5">
+          <Notepad items={wontDo}, title="We Will Never..." mdiIcon="close" color="red"/>
+          <Notepad items={willDo}, title="We Will..." mdiIcon="check" color="green"/>
+        </div>
+      </Section>
+    </div>
+  </BackgroundImage>
+  <BackgroundImage image="plaster1">
+    <div class="bg-gradient-to-b from-red-500/20 to-red-700/40">
+      <Section id="testimonials">
+        <SectionTitle
+          >Don't just take our word for it, check out our reviews!</SectionTitle
+        >
+        <Testimonials />
+      </Section>
+    </div>
+  </BackgroundImage>
+  <BackgroundImage image="plaster1">
+    <div class="bg-white/80">
+      <Section id="meet-the-team" topShadow>
+        <SectionTitle>Meet the Team</SectionTitle>
+        <ul class="flex flex-col md:flex-row gap-3 md:gap-20 lg:gap-40 mt-10">
+          {
+            teamMembers.map((mem) => (
+              <li class="">
+                <img
+                  src="/images/bobwood.jpg"
+                  class="w-60 rounded-xl mb-3 shadow-xl hover:scale-[102%] transition-transform"
+                />
+                <h2>{mem.name}</h2>
+                <h2 class="text-sm text-slate-400 font-light">{mem.title}</h2>
+              </li>
+            ))
+          }
+        </ul>
+      </Section>
+    </div>
+  </BackgroundImage>
+  <section id="call to action" class="bg-blue-100 w-full p-5 md:p-10">
+    <div
+      class="flex flex-col md:flex-row gap-5 md:gap-10 w-full items-center justify-center"
+    >
+      <CTA color="gray" href="/homes">Browse Our Homes</CTA>
+      <CTA href="/contact">Send Us a Message</CTA>
+    </div>
+  </section>
 </Layout>

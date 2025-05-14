@@ -1,0 +1,15 @@
+---
+interface Props {
+  textColor?: 'black' | 'white'
+  shadow?: boolean
+}
+
+const { textColor, shadow=false }: Props = Astro.props;
+
+const textColorCss = textColor === 'white' ? 'text-zinc-200' : 'text-black';
+---
+
+<h1 class=`${textColorCss} relative text-4xl  text-center w-full z-10`>
+  <slot />
+  
+</h1> 

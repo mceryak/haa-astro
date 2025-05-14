@@ -1,0 +1,77 @@
+---
+import BackgroundImage from "@/components/reusable/BackgroundImage.astro";
+import Section from "@/components/reusable/section/Section.astro";
+import SectionTitle from "@/components/reusable/section/SectionTitle.astro";
+import Layout from "@/layouts/Layout.astro";
+import Accordion from "@/components/reusable/Accordion.astro";
+import { Icon } from "astro-icon/components";
+
+type FAQ = {
+  question: string;
+  answer: string;
+  link?: string | undefined;
+  linkLabel?: string | undefined;
+};
+
+const faqs: FAQ[] = [
+  {
+    question: "What will my payments be?",
+    answer:
+      "Many factors affect the monthly payment, including this, that and the other thing. Click below to use our calculator.",
+    link: "/finance",
+    linkLabel: 'Try Our Mortgage Calculator'
+  },
+  {
+    question: "What is a Manufactured Home?",
+    answer:
+      "Manufactured homes, are built in a factory. Each home conforms to the US government's Manufactured Home Construction and Safety Standards (HUD code), rather than to building codes enforced at the home’s destination. Each home or segment of a home is built to conform to the HUD code. Homes Across America manufactured homes are known for their quality and attention to finish detail.",
+  },
+  {
+    question: "Are manufactured homes safe?",
+    answer:
+      "Homes Across America Homes built for the Gulf Coast are designed to withstand hurricane-force winds. As for fire, insurance company studies concluded that the chance of fire in a site-built home is twice that of today's manufactured home. Thanks to stringent building codes, safety inspection standards and anchoring requirements, a Homes Across America manufactured home may be the safest home you can buy.",
+  },
+];
+---
+
+<Layout activePage="FAQ">
+  <BackgroundImage image="plaster1">
+    <div class="bg-white/40 py-10">
+      <SectionTitle>Frequently Asked Questions</SectionTitle>
+    </div>
+  </BackgroundImage>
+  <Section id="frequently asked questions" topShadow contentWidth="small">
+    {
+      faqs.map((q, idx) => (
+        // <Accordion label={q.question} bgColor="slate">
+        <mobile-accordion
+          class="z-20 w-[min(80vw,85rem)] bg-slate-100 rounded-lg"
+          data-title={`${idx}`}
+          data-rotate="rotate-90"
+        >
+          <button class="w-full h-full">
+            <div
+              class={`flex gap-3 px-2 py-3 cursor-pointer w-full items-center  rounded-sm bg-slate-700 text-white text-xl`}
+            >
+              <Icon
+                id={`accordion-icon-${idx}`}
+                name="mdi:chevron-right"
+                class=" transition-transform text-white"
+              />
+              <h1>{q.question}</h1>
+            </div>
+          </button>
+          <ul class="flex hidden p-5 text-left flex-col gap-5">
+            <li class="">{q.answer}</li>
+            {q.link && (
+              <li class="text-blue-500 underline underline-offset-5">
+                <a href={q.link}>{q.linkLabel ?? q.link}</a>
+              </li>
+            )}
+          </ul>
+        </mobile-accordion>
+        // </Accordion>
+      ))
+    }
+  </Section>
+</Layout>

@@ -14,9 +14,12 @@ export const homes = sqliteTable("Homes", {
 	createdDate: text().notNull(),
 	lastModifiedDate: text().notNull(),
 	floorPlanR2Name: text(),
+	isFeatured: integer().default(0).notNull(),
+	thumbnailR2: text(),
 },
 (table) => [
 	check("Homes_check_1", sql`onDisplay IN (0, 1`),
+	check("Homes_check_2", sql`isFeatured IN (0, 1`),
 ]);
 
 export const relatedFiles = sqliteTable("RelatedFiles", {
@@ -27,11 +30,13 @@ export const relatedFiles = sqliteTable("RelatedFiles", {
 },
 (table) => [
 	check("Homes_check_1", sql`onDisplay IN (0, 1`),
+	check("Homes_check_2", sql`isFeatured IN (0, 1`),
 ]);
 
 export const cfKv = sqliteTable("_cf_KV", {
 },
 (table) => [
 	check("Homes_check_1", sql`onDisplay IN (0, 1`),
+	check("Homes_check_2", sql`isFeatured IN (0, 1`),
 ]);
 

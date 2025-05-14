@@ -1,0 +1,25 @@
+---
+import BackgroundImage, { type PublicImage } from "./reusable/BackgroundImage.astro";
+
+export type GridLinkItem = {
+  label: string
+  description: string
+  image: PublicImage
+  href: string
+}
+
+interface Props {
+  item: GridLinkItem
+}
+
+const { item }: Props = Astro.props;
+---
+
+<div class="md:max-w-[45vw] relative group shadow-md shadow-black">
+  <BackgroundImage image={item.image}>
+    <a href={item.href} class="bg-black/40 group-hover:bg-black/60 transition-colors border-4 border-white/50 rounded-sm h-full cursor-pointer text-zinc-200 py-40 px-30 flex flex-col items-center ">
+      <h1 class="text-5xl group-hover:scale-105 transition-transform border-b-2  font-semibold border-zinc-200 p-5 ">{item.label}</h1>
+      <p class="absolute bottom-10 group-hover:bottom-11  transition-all px-10 text-lg">{item.description}</p>
+    </a>
+  </BackgroundImage>
+</div>

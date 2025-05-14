@@ -9,10 +9,13 @@ import Form from "./Form";
 export default function QueryParamsForm({ formItems, defaultValues={}, action }: FormInput) {
   const $queryParams = useStore(queryParams);
 
+  if (!$queryParams) { return null; } // to prevent hydration error
+  
+  const defaults = Object.keys($queryParams).reduce((acc, k) => ({ ...acc, [k]: $queryParams[k]?.at(0) }), defaultValues);
   return (
     <Form 
       formItems={formItems} 
-      defaultValues={Object.keys($queryParams).reduce((acc, k) => ({ ...acc, [k]: $queryParams[k]?.at(0) }), defaultValues)}
+      defaultValues={defaults}
       action={action}
     />
   )

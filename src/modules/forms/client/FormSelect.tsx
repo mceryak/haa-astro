@@ -17,7 +17,7 @@ export default function FormSelect({ name, label, cols=1, options=[], required=f
   }); // important no dependencies; need to run each re-render
   
   return (
-    <select ref={selectRef} name={name} id={name} className={defaultCss} defaultValue={defaultValue}>
+    <select ref={selectRef} name={name} id={name} className={`${defaultCss} w-full h-full py-2`} defaultValue={defaultValue}>
       <option value=""> </option>
       {options.map(o =>  (
         <option key={o} value={o}  className='capitalize'>{o}</option>

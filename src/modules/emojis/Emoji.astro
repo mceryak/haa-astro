@@ -1,0 +1,14 @@
+---
+import type { EmojiType } from "./types";
+
+interface Props {
+  name: EmojiType;
+}
+
+const { name, ...props }: Props = Astro.props;
+---
+
+{name === "home" && <span {...props}>🏠</span>}
+{name === "pin" && <span {...props}>📍</span>}
+{name === "hammer-and-wrench" && <span {...props}>🛠</span>}
+{name === "dollar-sign" && <span {...props}>💲</span>}

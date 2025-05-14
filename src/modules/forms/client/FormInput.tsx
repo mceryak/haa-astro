@@ -1,6 +1,6 @@
 import FormSelect from "./FormSelect"
 import type { FormItem } from "../types"
-import type { ChangeEvent } from "react"
+import { useState, type ChangeEvent } from "react"
 
 type Props = { 
   item: FormItem
@@ -12,7 +12,7 @@ type Props = {
 export default function FormInput({ item, defaultValue, error='', onChange }: Props) {
   const { name, label, cols=1, options=[], required=false, type="text", preLabel, postLabel, step } = item;
 
-  const defaultCss = `p-2 rounded-lg bg-slate-100 border-red-500 ${error ? 'border-2' : ''}`;
+  const defaultCss = `px-2 w-full h-full rounded-lg bg-slate-100 border-red-500 ${error ? 'border-2' : ''}`;
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
@@ -26,11 +26,11 @@ export default function FormInput({ item, defaultValue, error='', onChange }: Pr
     <div className={`${defaultCss} flex gap-1 items-center`}>
       {!!preLabel && <span className="text-slate-800/50 font-light">{preLabel}</span>}
       {type === 'textarea' ? (
-        <textarea name={name} id={name} className={defaultCss}  defaultValue={defaultValue ?? ''}></textarea>
+        <textarea name={name} id={name} className={`w-full h-full rounded-lg bg-slate-100`}  defaultValue={defaultValue ?? ''}></textarea>
       ) : type === 'select' ? (
         <FormSelect name={name} label={label} cols={cols} required={required} defaultCss={defaultCss} defaultValue={defaultValue ?? ''} error={error} options={options}/>
       ) : (
-        <input id={name} name={name} type={type} defaultValue={defaultValue ?? ''} className="grow-1" onChange={handleChange} step={step}/>
+        <input id={name} name={name} type={type} defaultValue={defaultValue ?? ''} className="grow-1 py-2" onChange={handleChange} step={step}/>
       )}
       {!!postLabel && <span className="text-slate-800/50 text-nowrap font-light">{postLabel}</span>}
     </div>

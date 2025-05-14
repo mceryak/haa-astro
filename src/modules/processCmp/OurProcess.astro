@@ -1,0 +1,148 @@
+---
+import { Icon } from "astro-icon/components";
+import SectionTitle from "@/components/reusable/section/SectionTitle.astro";
+import BackgroundImage from "@/components/reusable/BackgroundImage.astro";
+import ProcessItem from "./ProcessItem";
+import OurProcessMobileHeader from "./OurProcessMobileHeader";
+
+export type ProcessStep = {
+  label: string;
+  order: number;
+  description: string;
+  icon: 'landforsale.png' | 'financing.png';
+};
+const steps: ProcessStep[] = [
+  {
+    icon: "financing.png",
+    order: 2,
+    label: "Financing",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. ",
+  },
+  {
+    icon: "landforsale.png",
+    order: 1,
+    label: "Find Land",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.",
+  },
+  {
+    icon: "landforsale.png",
+    order: 3,
+    label: "Close",
+    description:
+      "empus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.",
+  },
+  {
+    icon: "landforsale.png",
+    order: 4,
+    label: "Utilities",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. ",
+  },
+  {
+    icon: "landforsale.png",
+    order: 5,
+    label: "More Steps",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. ",
+  },
+  {
+    icon: "landforsale.png",
+    order: 6,
+    label: "Even More",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. ",
+  },
+];
+const stepsSorted = steps.toSorted((a, b) => a.order - b.order);
+const colTemplate = steps
+  .map((_, idx) => (idx < steps.length - 1 ? ["1fr 1rem"] : ["1fr"]))
+  .join(" "); // arrows should have smaller columns
+---
+
+<!-- <ProcessItem client:load steps={steps.toSorted((a, b) => a.order - b.order)} /> --><!-- <ul
+  class=`flex gap-x-5 items-center flex-wrap justify-center`
+  slot="title"
+  style=`grid-template-columns: ${colTemplate};`
+>
+  
+</ul> -->
+<BackgroundImage image="plaster1">
+  <div
+    class="h-100 py-10 bg-sky-900/60 text-zinc-200 flex flex-col items-center gap-5"
+  >
+    <SectionTitle textColor="white" slot="title">Our Process</SectionTitle>
+    <OurProcessMobileHeader client:load steps={stepsSorted} />
+
+    <!-- path header  -->
+    <ul class=`hidden lg:flex gap-x-5 items-center flex-wrap justify-center`>
+      {
+        stepsSorted.map((step, idx) => (
+          <>
+            <li class={``}>
+              <button
+                id={`process-btn-${step.order}`}
+                data-order={step.order}
+                class={`py-3  px-4 cursor-pointer rounded-4xl border-sky-600 ${step.order === 1 ? "bg-slate-600" : ""}`}
+              >
+                <span class="px-2">{step.order}.</span> {step.label}
+              </button>
+            </li>
+            {idx < steps.length - 1 && (
+              <div aria-hidden="true" class="flex flex-col items-center">
+                <Icon name="mdi:arrow-right-bold" />
+              </div>
+            )}
+          </>
+        ))
+      }
+    </ul>
+    <div
+      class=""
+    >
+      {
+        steps.map((step) => (
+          <div
+            id={`step-desc-${step.order}`}
+            data-order={step.order}
+            class={`${step.order === 1 ? "" : "hidden"} text-center md:text-left md:indent-5 max-w-[40rem] flex flex-col md:flex-row items-center gap-5 md:gap-10 w-full lg:px-10`}
+          >
+            <img src={`/images/icons/${step.icon}`} class="md:hidden h-15" />
+            <p class="text-lg">{step.description}</p>
+            <img src={`/images/icons/${step.icon}`} class="hidden md:block h-25" />
+          </div>
+          ))
+        }
+    </div>
+  </div>
+</BackgroundImage>
+
+<script>
+  import { activeStep } from "./store";
+
+  activeStep.subscribe((val, oldVal) => {
+    const buttonPrefix = "process-btn-";
+    const buttonHighlight = "bg-slate-600";
+
+    const oldBtn = document.getElementById(`${buttonPrefix}${oldVal}`);
+    const newBtn = document.getElementById(`${buttonPrefix}${val}`);
+
+    oldBtn?.classList.remove(buttonHighlight);
+    newBtn?.classList.add(buttonHighlight);
+
+    const oldDiv = document.getElementById(`step-desc-${oldVal}`);
+    const newDiv = document.getElementById(`step-desc-${val}`);
+
+    oldDiv?.classList.add("hidden");
+    newDiv?.classList.remove("hidden");
+  });
+
+  const btns = document.querySelectorAll(`[id^='process-btn-']`);
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const { order } = btn.dataset;
+      activeStep.set(order);
+    });
+  });
+</script>

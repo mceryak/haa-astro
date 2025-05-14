@@ -1,0 +1,1 @@
+export type EmojiType = 'home' | 'pin' | 'hammer-and-wrench' | 'dollar-sign'

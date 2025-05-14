@@ -16,6 +16,8 @@ const homeSchema = z.object({
   onDisplay: z.number(),
   manufacturer: z.string(),
   createdDate: z.string(),
+  isFeatured: z.number(),
+  thumbnailR2: z.string().nullable().optional(),
   lastModifiedDate: z.string()
 });
 

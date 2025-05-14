@@ -1,0 +1,1 @@
+export const getR2Url = (r2Name: string): string => `https://cdn.michaelceryak.com/image/${encodeURIComponent(r2Name)}`;

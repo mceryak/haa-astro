@@ -80,18 +80,20 @@ export default function MortgageCalculator() {
     { name: 'original', label: '' },
   ]
   
-  return <div className="flex flex-col lg:flex-row gap-5 w-full">
-    <form onSubmit={handleSubmit} className={`pb-4 border-b-4 border-dotted lg:border-b-0 lg:pb-0`}>
-      {formItems.map(item => (
-        <FormInput key={item.name} item={item} defaultValue={inputs[item.name]} error={errors[item.name]} />
-      ))}
-      <button className="w-full text-white cursor-pointer mt-2">
-        <div className="flex gap-2 items-center w-full justify-center p-2 rounded-lg bg-green-700 hover:scale-105 transition-transform">
-          <FaCalculator />
-          <span>Calculate</span>
-        </div>
-      </button>
-    </form>
+  return <div className="flex flex-col lg:flex-row gap-5 w-full lg:px-10">
+    <div className="pb-4 lg:pb-0 border-b-4 border-dotted lg:border-b-0">
+      <form onSubmit={handleSubmit} className={`border-4 border-amber-400 bg-amber-200 p-4 rounded-xl`}>
+        {formItems.map(item => (
+          <FormInput key={item.name} item={item} defaultValue={inputs[item.name]} error={errors[item.name]} />
+        ))}
+        <button className="w-full text-white cursor-pointer mt-2">
+          <div className="flex gap-2 items-center w-full justify-center p-2 rounded-lg bg-amber-700 hover:scale-105 transition-transform">
+            <FaCalculator />
+            <span>Calculate</span>
+          </div>
+        </button>
+      </form>
+    </div>
     <ul className="w-full text-sm md:text-base">
       {inputs.extraPerMonth > 0 && 
         <li className="w-full">

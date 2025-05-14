@@ -1,0 +1,25 @@
+---
+import type { Home } from '@/content.config'
+
+interface Props {
+  home: Home
+}
+
+const { home }: Props = Astro.props;
+---
+
+<li id={home.modelNumber} class="bg-white rounded-md hover:scale-[102%] transition-transform cursor-pointer shadow">
+  <a
+    href={`/homes/${home.modelNumber}`}
+  >
+    <img src="/images/hero-temp.jpg" />
+    <div class="p-3">
+      <h3 class="font-bold text-2xl pb-2">{home.modelNumber}</h3>
+      <div class="flex gap-2">
+        <p class="border-r-1 pr-2">{home.beds} beds</p>
+        <p class="border-r-1 pr-2">{home.baths} baths</p>
+        <p>3252 sq. ft.</p>
+      </div>
+    </div>
+  </a>
+</li>

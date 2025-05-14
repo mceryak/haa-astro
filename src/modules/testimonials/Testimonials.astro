@@ -1,0 +1,61 @@
+---
+import SectionContent from "@/components/reusable/SectionContent.astro";
+import type { Testimonial } from "./types";
+
+const testimonials: Testimonial[] = [
+  {
+    name: "Fred M.",
+    link: "https://maps.app.goo.gl/D3vHHsCHVGRzqXie9",
+    description:
+      "My wife and I went there because a co-worker of mine highly recommended them and let me tell you Chris and Bob are wonderful people. These guys took us step by step because it was our first time buying a home. Very helpful and will keep you informed on everything. Been in our home since July and if we call with any questions they ALWAYS answer. Thanks again HAA. They are #1 in serving the people.",
+  },
+  {
+    name: "Thomas S.",
+    link: "https://maps.app.goo.gl/S7G8fRZsvU1Gjp3A8",
+    description:
+      "These guys are outstanding, Chris will go way out of his way on the financial side and never gives up ,Bob is a great guy ...even after the warranty is gone for 2 years Bob is still there for you and will do what ever it takes to resolve the issue at hand. If your looking for a manufacturerd home these are the guys to go to ...I promise you that you won't be disappointed",
+  },
+  {
+    name: "Stephanie H.",
+    link: "https://maps.app.goo.gl/auCbaiTzvqEB2Z8N8",
+    description:
+      "Great people to get a home from.  They will try and help you anyway they can.  I put money down at another home place. Seen there sign and a house i was  Interested in.  Stop to look. Well let's say they where way cheaper for the same home at the one I put money down on and they sat down broke every down to us An more. Let just say got my money from the other company and buying my home from them...",
+  },
+  {
+    name: "Helen H.",
+    link: "https://maps.app.goo.gl/WNvs18tyrDt5d9VX7",
+    description:
+      "Had an amazing experience! They found us the home of our dreams and worked with us throughout the set up and even after! Would highly recommend these guys!",
+  },
+];
+---
+
+<!-- <section
+  id="testimonials"
+  class=""
+>
+  <SectionContent title="Check out some of our Google Reviews!" titleTextColor="text-white" noTopShadow> -->
+    <ul
+      class=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-lg"
+    >
+      {
+        testimonials.map((t) => (
+          <li class="">
+            <a
+              href={t.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-3  flex flex-col gap-2 bg-slate-100 h-full shadow-black/50 shadow-xl  rounded-sm cursor-pointer hover:scale-[101%] transition-transform max-h-80 "
+            >
+              <div class="flex justify-between text-xl gap-5">
+                <h2 class=" font-semibold">{t.name}</h2>
+                <p>⭐️⭐️⭐️⭐️⭐️</p>
+              </div>
+              <p class="italic line-clamp-9">"{t.description}"</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  <!-- </SectionContent>
+</section> -->

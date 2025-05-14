@@ -1,0 +1,37 @@
+---
+export type PublicImage = 'plaster' | 'plaster1' | 'gridlinks/manufactured' | 'land' | 'homeExterior' | 'notepad' | 'notepad-h';
+
+interface Props {
+  image: PublicImage
+  blendColor?: string | undefined
+}
+
+const { image, blendColor='', ...props }: Props = Astro.props;
+
+const imageToCssMap: { [key: string]: string } = {
+  plaster: "bg-[url('/images/plaster.jpg')]",
+  plaster1: "bg-[url('/images/plaster.jpg')]",
+  'gridlinks/manufactured': "bg-[url('/images/gridlinks/manufactured.jpg')]",
+  land: "bg-[url('/images/land.jpg')]",
+} 
+
+const bgImageCss = image === 'plaster' ? 
+  "bg-[url('/images/plaster.jpg')]" : image === 'plaster1' ?
+  "bg-[url('/images/plaster1.jpg')]" : image === 'gridlinks/manufactured' ?
+  "bg-[url('/images/gridlinks/manufactured.jpg')]" : image ===  'land' ? 
+  "bg-[url('/images/land.jpg')]" : image === 'homeExterior' ?
+  "bg-[url('/images/homeExterior.jpg')]" : image === 'notepad' ?
+  "bg-[url('/images/notepad.jpg')]" : image === 'notepad-h' ?
+  "bg-[url('/images/notepad-h.png')]" : '';
+---
+
+
+
+
+
+  <div class=`${blendColor} ${bgImageCss} bg-cover bg-center bg-blend-luminosity h-full ` {...props}>
+    <slot />
+
+  </div>
+
+

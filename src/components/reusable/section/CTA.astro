@@ -1,0 +1,37 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  color?: "blue" | "green" | "gray";
+  href: string;
+  fullWidth?: boolean;
+  isExternalLink?: boolean;
+}
+
+const {
+  href,
+  color = "blue",
+  fullWidth = false,
+  isExternalLink = false,
+}: Props = Astro.props;
+
+const widthCss = fullWidth ? "w-full" : "w-full md:w-auto";
+const colorCss =
+  color === "blue"
+    ? "from-sky-700 to-sky-800"
+    : color === "green"
+      ? "from-green-700 to-green-800"
+      : color === "gray"
+        ? "from-zinc-500 to-zinc-600"
+        : "";
+---
+
+<a
+  href={href}
+  class=`cursor-pointer px-8 py-5 rounded-sm ${widthCss} text-center text-zinc-200 text-xl hover:scale-[101%] transition-transform bg-gradient-to-b ${colorCss}`
+>
+<div class="flex gap-2 items-center justify-center">
+  <slot />
+  {isExternalLink && <Icon name="mdi:launch" />}
+</div>
+</a>

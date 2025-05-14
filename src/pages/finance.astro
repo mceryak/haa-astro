@@ -1,15 +1,61 @@
 ---
+import BackgroundImage from "@/components/reusable/BackgroundImage.astro";
+import TopShadow from "@/components/reusable/TopShadow.astro";
 import Layout from "@/layouts/Layout.astro";
-import MortgageCalculatorInputs from '@/modules/mortgageCalculator/MortgageCalculatorInputs';
+import MortgageCalculator from "@/modules/mortgageCalculator/MortgageCalculator";
 import MortgageCalculatorResults from "@/modules/mortgageCalculator/MortgageCalculatorResults";
+import { Icon } from "astro-icon/components";
 
+type CreditApp = {
+  r2Name: string;
+  label: string;
+};
+const creditApps: CreditApp[] = [
+  { label: "USDA Loan Credit App", r2Name: "usdacreditapp.pdf" },
+  { label: "FHA Loan Credit App", r2Name: "fhacreditapp.pdf" },
+  { label: "USDA Loan Credit App", r2Name: "usdacreditapp.pdf" },
+];
 ---
 
-<Layout>
-  <section class="m-10 flex gap-5">
-    <!-- <div class="w-70"> -->
-      <MortgageCalculatorInputs client:load />
-    <!-- </div> -->
-    <!-- <MortgageCalculatorResults client:load /> -->
-  </section>
+<Layout activePage="Finance">
+  <BackgroundImage image="plaster1">
+    <div class="bg-white/40 py-10">
+      <section
+        class="mx-2 md:mx-10 flex flex-col items-center text-center gap-10"
+      >
+        <h1 class="text-4xl text-center w-full">Credit Applications</h1>
+        <p class="max-w-[55rem]">
+          Below are links to our credit applications. One of the applications is
+          for a home only purchase and land in lieu of down payment. The other
+          link is to one of our land and home lenders. These lenders do not have
+          to be used in the purchase of your home, but are what we have
+          available to help you. You can choose whatever lenders you would like
+          to do your loan. You are able to use your own if you have one
+          available. We just supply these as a courtesy if you do not have one.
+          Please fill the application out as much as you can.
+        </p>
+        <ul
+          class="text-nowrap text-blue-500 flex flex-col lg:flex-row gap-3 lg:gap-10 text-lg"
+        >
+          {
+            creditApps.map((app) => (
+              <li class="">
+                <a href={`/`} class="cursor-pointer flex gap-2 items-center">
+                  <span>{app.label}</span>
+                  <Icon name="mdi:launch" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+  </BackgroundImage>
+  <div class="relative">
+    <section class="lg:px-10 lg:py-5 px-5 flex flex-col gap-5">
+      <h1 class="text-4xl p-5 text-center w-full">Mortgage Calculator</h1>
+      <MortgageCalculator client:load />
+    </section>
+    <TopShadow />
+  </div>
 </Layout>

@@ -1,0 +1,19 @@
+---
+import HomeCard from "@/components/HomeCard";
+import SectionContent from '@/components/reusable/SectionContent.astro';
+import type { Home } from "@/content.config";
+
+interface Props {
+  homes: Home[];
+}
+
+const { homes }: Props = Astro.props;
+console.log("featured", homes.length);
+---
+
+<section id="featured-homes" class="">
+  <SectionContent title="Featured Homes" noTopShadow>
+    
+    <!-- <a href="/homes" class="cursor-pointer px-8 py-5 rounded-sm w-full text-center text-zinc-200 text-xl hover:scale-[101%] transition-transform bg-gradient-to-b from-sky-700 to-sky-800">Browse All Homes</a> -->
+  </SectionContent>
+</section>

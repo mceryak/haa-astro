@@ -8,6 +8,9 @@ import { Icon } from "astro-icon/components";
 import ContactCategory from "@/components/contact/ContactCategory.astro";
 import ContactCategoryItem from "@/components/contact/ContactCategoryItem.astro";
 import PageTitle from "@/components/reusable/PageTitle.astro";
+import BackgroundImage from "@/components/reusable/BackgroundImage.astro";
+import SectionTitle from "@/components/reusable/section/SectionTitle.astro";
+import TopShadow from "@/components/reusable/TopShadow.astro";
 
 const mapsUrl = "https://maps.app.goo.gl/MUsH1n2uCzfLdJjJA";
 
@@ -16,39 +19,31 @@ const email = "homesacross@merica.com";
 ---
 
 <Layout activePage="Contact">
-  <!-- <div class="flex items-center justify-center pt-3">
-
-    <PageTitle title="Contact Us" />
-  </div> -->
-  <div
-    class="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-7 mt-3"
-  >
-    <div class="hidden md:block">
-      <LeafletMap
-        client:only="react"
-        googleMapsUrl={mapsUrl}
-        lat={30.492467529996787}
-        long={-95.494105528836}
-        width="50vw"
-        maxWidth="30rem"
-        height="22rem"
-      />
+  <BackgroundImage image="plaster1">
+    <div class="bg-white/40 py-10">
+      <SectionTitle>Contact Us</SectionTitle>
     </div>
-    <!-- <div class="hidden  lg:block">
-      <LeafletMap
-        client:only
-        googleMapsUrl={mapsUrl}
-        lat={30.492467529996787}
-        long={-95.494105528836}
-        width="30rem"
-        height="22rem"
-      />
-    </div> -->
+  </BackgroundImage>
+  <div
+    class="flex relative flex-col md:flex-row items-center justify-center gap-3 md:gap-7"
+  >
+    <TopShadow />
+    <!-- <Section> -->
+    <div class="hidden md:block md:mt-15">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3438.014408499586!2d-95.49666972441632!3d30.4923426972107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864716be6bdd0ebb%3A0xd20c1dd59fc43b9e!2sHomes%20Across%20America!5e0!3m2!1sen!2sus!4v1745866740625!5m2!1sen!2sus"
+        width="450"
+        height="350"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
 
     <ul
-      class="md:py-5 px-3 flex flex-col gap-4 w-full max-w-120 md:w-80 items-center"
+      class="md:py-5 px-3 flex flex-col gap-4 w-full max-w-120 md:w-80 items-center mt-15 md:mt-0"
     >
-      <ContactCategory title="Contact Info" >
+      <ContactCategory title="Contact Info">
         <ContactCategoryItem
           ariaLabel="Business Hours"
           icon="clock-time-three-outline"
@@ -73,14 +68,13 @@ const email = "homesacross@merica.com";
         >
       </ContactCategory>
       <li class="md:hidden">
-        <LeafletMap
-          client:only="react"
-          googleMapsUrl={mapsUrl}
-          lat={30.492467529996787}
-          long={-95.494105528836}
-          width="90vw"
-          height="15rem"
-        />
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3438.014408499586!2d-95.49666972441632!3d30.4923426972107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864716be6bdd0ebb%3A0xd20c1dd59fc43b9e!2sHomes%20Across%20America!5e0!3m2!1sen!2sus!4v1745866740625!5m2!1sen!2sus"
+          class="w-[90vw] h-110"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
       </li>
       <ContactCategory title="Send Us a Message">
         <ContactCategoryItem
@@ -90,7 +84,9 @@ const email = "homesacross@merica.com";
       </ContactCategory>
     </ul>
   </div>
-  <ContactForm client:load />
+  <section id="contact-form" class="scroll-mt-20">
+    <ContactForm client:load />
+  </section>
 </Layout>
 
 <script src="@/modules/readQueryParams/scripts/readQueryParamsToStore.js"

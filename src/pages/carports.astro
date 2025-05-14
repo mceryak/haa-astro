@@ -1,0 +1,253 @@
+---
+import BackgroundImage from "@/components/reusable/BackgroundImage.astro";
+import ExternalLink from "@/components/reusable/ExternalLink.astro";
+import Section from "@/components/reusable/section/Section.astro";
+import SectionTitle from "@/components/reusable/section/SectionTitle.astro";
+import TopShadow from "@/components/reusable/TopShadow.astro";
+import CTA from "@/components/reusable/section/CTA.astro";
+import Layout from "@/layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import CTARow from "@/components/reusable/section/CTARow.astro";
+
+/*
+54x60x14/10/8 Custom Metal Garage is built with a White Vertical Style Roof with Royal Blue Trim, 10’ Eave Leg Height, (1) 12’x15’ Fully Enclosed White Lean-To Closed Vertically with (1) 13’x9’ Custom Dutch Frameouts and (2) 10’x9’ Custom Dutch Frameouts, (1) 12’x60’ Lean-To with the Right Side and Front End Closed with (1) 24”x36” Window, 14' Center Section Eave Leg Height, Sides and Ends Closed Vertically with Royal Blue Wainscoting, (3) 12'x12' Garage Doors, (5) 24”x36” Windows, (2) Walk-in Doors, Earth Auger (Mobile Home) Anchor Package and is Engineer Certified for 140MPH / 35PSF. This structure is only $48,953 + Tax (cash), installed on your level-land (or your concrete/asphalt/etc). All prices shown are an estimate and subject to change. Check the latest price and customize this Metal Building using our 3D Builder at https://build.eaglecarports.com/?dealer=D0012000-MAIN#8847b98c998bf3a5df3e5d190c78e570. All prices shown are an estimate and subject to change. Call us at (936) 344-9000, or come visit us at 17431 I-45N
+WILLIS, TX 77318 USA. Note: We do not offer any concrete or site-prep work. Learn more about our Rent-to-Own and Financing options at https://www.EagleCarports.com/financing. *Customer can provide a 7k Lull Telescopic Lift in lieu of the $2,100.00 lift charge not included in the price shown. **Due to over 50% of a sidewall having openings, this building would require a Site-Specific, which would affect pricing depending on the area.
+// */
+
+type Carport = {
+  name: string;
+  imageR2: string;
+  thumbnailR2: string;
+  dimensions: string;
+  features: string[];
+  cashPrice: number;
+  customizeUrl: string;
+};
+
+const featuredCarport: Carport = {
+  name: "Custom Metal Garage",
+  dimensions: "54 x 60 x 14/10/8",
+  imageR2: "/images/featuredCarportDemo.jpeg",
+  thumbnailR2: "/images/featuredCarport.png",
+  features: [
+    "54 x 60 x 14/10/8",
+    "White Vertical Style Roof with Royal Blue Trim",
+    "10' Eave Leg Height",
+    "14' Center Section Eave Leg Height",
+    "(1) 12'x60' Lean-To with the Right Side and Front End Closed with (1) 24”x36” Window",
+    "(1) 12'x15' Fully Enclosed White Lean-To Closed Vertically with (1) 13'x9' Custom Dutch Frameouts and (2) 10'x9' Custom Dutch Frameouts",
+    "Sides and Ends Closed Vertically with Royal Blue Wainscoting",
+    "(3) 12'x12' Garage Doors",
+    "(5) 24”x36” Windows",
+    "(2) Walk-in Doors",
+    "Earth Auger (Mobile Home) Anchor Package",
+    "Engineer Certified for 140MPH / 35PSF.",
+  ],
+  cashPrice: 48_953,
+  customizeUrl:
+    "https://build.eaglecarports.com/?dealer=D0012000-MAIN#8847b98c998bf3a5df3e5d190c78e570",
+};
+const otherCarports: Carport[] = [
+  {
+    name: "Custom Metal Garage1",
+    dimensions: "54 x 60 x 14/10/8",
+    imageR2: "/images/featuredCarportDemo.jpeg",
+    thumbnailR2: "/images/featuredCarport.png",
+    features: [
+      "White Vertical Style Roof with Royal Blue Trim",
+      "10' Eave Leg Height",
+      "(1) 12'x15' Fully Enclosed White Lean-To Closed Vertically with (1) 13'x9' Custom Dutch Frameouts and (2) 10'x9' Custom Dutch Frameouts",
+      "(1) 12'x60' Lean-To with the Right Side and Front End Closed with (1) 24”x36” Window",
+      "14' Center Section Eave Leg Height",
+      "Sides and Ends Closed Vertically with Royal Blue Wainscoting",
+      "(3) 12'x12' Garage Doors",
+      "(5) 24”x36” Windows",
+      "(2) Walk-in Doors",
+      "Earth Auger (Mobile Home) Anchor Package",
+      "Engineer Certified for 140MPH / 35PSF.",
+    ],
+    cashPrice: 48_953,
+    customizeUrl:
+      "https://build.eaglecarports.com/?dealer=D0012000-MAIN#8847b98c998bf3a5df3e5d190c78e570",
+  },
+  {
+    name: "Custom Metal Garage2",
+    dimensions: "54x60x14/10/8",
+    imageR2: "/images/featuredCarportDemo.jpeg",
+    thumbnailR2: "/images/featuredCarport.png",
+    features: [
+      "White Vertical Style Roof with Royal Blue Trim",
+      "10' Eave Leg Height",
+      "(1) 12'x15' Fully Enclosed White Lean-To Closed Vertically with (1) 13'x9' Custom Dutch Frameouts and (2) 10'x9' Custom Dutch Frameouts",
+      "(1) 12'x60' Lean-To with the Right Side and Front End Closed with (1) 24”x36” Window",
+      "14' Center Section Eave Leg Height",
+      "Sides and Ends Closed Vertically with Royal Blue Wainscoting",
+      "(3) 12'x12' Garage Doors",
+      "(5) 24”x36” Windows",
+      "(2) Walk-in Doors",
+      "Earth Auger (Mobile Home) Anchor Package",
+      "Engineer Certified for 140MPH / 35PSF.",
+    ],
+    cashPrice: 48_953,
+    customizeUrl:
+      "https://build.eaglecarports.com/?dealer=D0012000-MAIN#8847b98c998bf3a5df3e5d190c78e570",
+  },
+  {
+    name: "Custom Metal Garage3",
+    dimensions: "54x60x14/10/8",
+    imageR2: "/images/featuredCarportDemo.jpeg",
+    thumbnailR2: "/images/featuredCarport.png",
+    features: [
+      "White Vertical Style Roof with Royal Blue Trim",
+      "10' Eave Leg Height",
+      "(1) 12'x15' Fully Enclosed White Lean-To Closed Vertically with (1) 13'x9' Custom Dutch Frameouts and (2) 10'x9' Custom Dutch Frameouts",
+      "(1) 12'x60' Lean-To with the Right Side and Front End Closed with (1) 24”x36” Window",
+      "14' Center Section Eave Leg Height",
+      "Sides and Ends Closed Vertically with Royal Blue Wainscoting",
+      "(3) 12'x12' Garage Doors",
+      "(5) 24”x36” Windows",
+      "(2) Walk-in Doors",
+      "Earth Auger (Mobile Home) Anchor Package",
+      "Engineer Certified for 140MPH / 35PSF.",
+    ],
+    cashPrice: 48_953,
+    customizeUrl:
+      "https://build.eaglecarports.com/?dealer=D0012000-MAIN#8847b98c998bf3a5df3e5d190c78e570",
+  },
+  {
+    name: "Custom Metal Garage3",
+    dimensions: "54x60x14/10/8",
+    imageR2: "/images/featuredCarportDemo.jpeg",
+    thumbnailR2: "/images/featuredCarport.png",
+    features: [
+      "White Vertical Style Roof with Royal Blue Trim",
+      "10' Eave Leg Height",
+      "(1) 12'x15' Fully Enclosed White Lean-To Closed Vertically with (1) 13'x9' Custom Dutch Frameouts and (2) 10'x9' Custom Dutch Frameouts",
+      "(1) 12'x60' Lean-To with the Right Side and Front End Closed with (1) 24”x36” Window",
+      "14' Center Section Eave Leg Height",
+      "Sides and Ends Closed Vertically with Royal Blue Wainscoting",
+      "(3) 12'x12' Garage Doors",
+      "(5) 24”x36” Windows",
+      "(2) Walk-in Doors",
+      "Earth Auger (Mobile Home) Anchor Package",
+      "Engineer Certified for 140MPH / 35PSF.",
+    ],
+    cashPrice: 48_953,
+    customizeUrl:
+      "https://build.eaglecarports.com/?dealer=D0012000-MAIN#8847b98c998bf3a5df3e5d190c78e570",
+  },
+];
+---
+
+<Layout activePage="Carports">
+  <BackgroundImage image="plaster1">
+    <div class="bg-white/40 py-10">
+      <section
+        class="mx-2 md:mx-10 flex flex-col items-center text-center gap-5"
+      >
+        <div class="flex flex-col items-center gap-2">
+          <SectionTitle>Carports & Garages</SectionTitle>
+        </div>
+        <img src="/images/eagleCarportsLogo.webp" class="w-30 translate-x-2" />
+        <p class="max-w-[55rem]">
+          We proudly partner with Eagle Carports to deliver exceptional carports
+          and metal garages to our customers. Check out the current or past
+          featured carports, or click below to customize your own!
+        </p>
+
+        <ExternalLink href="https://build.eaglecarports.com/?dealer=D0012000">
+          <img
+            src="/images/buildYourOwnCarport.png"
+            class="w-50"
+            slot="image"
+          />
+          Build Your Own Carport
+        </ExternalLink>
+      </section>
+    </div>
+  </BackgroundImage>
+  <Section id="featured carport" topShadow>
+    <SectionTitle>Featured Design</SectionTitle>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div
+        class="flex flex-col gap-3 items-center md:mx-10 lg:mx-0 lg:max-w-auto"
+      >
+        <img src={featuredCarport.imageR2} class="rounded-sm shadow-lg" />
+        <div class="hidden lg:block w-full">
+          <CTARow>
+            <CTA href="/" fullWidth isExternalLink>Customize This Design</CTA>
+          </CTARow>
+        </div>
+      </div>
+      <div class="md:mx-10 lg:mx-0">
+        <!-- <h2 class="text-lg font-semibold lg:text-left">{featuredCarport.name}</h2>
+        <div class="flex gap-2 items-center justify-center w-full -translate-x-2 lg:-translate-x-0 text-base mb-5">
+          <span class="w-4 text-amber-700"><Icon name="mdi:ruler-square" /></span>
+          {featuredCarport.dimensions}
+        </div> -->
+        <h2 class="font-semibold text-center lg:text-left mb-2">
+          {featuredCarport.name}
+        </h2>
+        <ul
+          class="text-base flex flex-col md:grid grid-cols-2 lg:grid-cols-1 items-center gap-2 md:text-left mb-4 w-full"
+        >
+          {
+            featuredCarport.features.map((ft) => (
+              <li class="flex gap-2 items-baseline ">
+                <span class="w-4 text-amber-500">
+                  <Icon name="mdi:star" />
+                </span>
+                {ft}
+              </li>
+            ))
+          }
+        </ul>
+        <div class="lg:hidden w-full">
+          <CTARow>
+            <CTA href="/" fullWidth isExternalLink>Customize This Design</CTA>
+          </CTARow>
+        </div>
+        <!-- <a
+          href="/"
+          class="mt-2 flex gap-2 items-center justify-center cursor-pointer text-zinc-200 bg-sky-800 rounded-lg p-3"
+        >
+          Customize This Carport
+          <Icon name="mdi:launch" />
+        </a> -->
+      </div>
+    </div>
+  </Section>
+  <BackgroundImage image="plaster1">
+    <div class="bg-gradient-to-b from-white/70 to-red-300/20">
+      <Section id="past featured carports">
+        <SectionTitle>Past Featured</SectionTitle>
+        <ul
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-center mx-2 md:mx-10"
+        >
+          {
+            otherCarports.map((cp) => (
+              <li class="relative max-w-100">
+                <a class="cursor-pointer  group w-full text-white" href="/">
+                  <img src={cp.thumbnailR2} class="rounded-sm shadow-lg " />
+                  <div class="hidden group-focus:flex group-hover:flex gap-2 items-center justify-center absolute top-0 left-0 w-full h-full bg-black/50 rounded-sm">
+                    <span>Customize</span>
+                    <Icon name="mdi:launch" />
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </Section>
+    </div>
+  </BackgroundImage>
+  <BackgroundImage image="plaster1">
+    <section id="call to action" class="bg-white/50 w-full p-5 md:p-10">
+      <div
+        class="flex flex-col md:flex-row gap-5 md:gap-10 w-full items-center justify-center"
+      >
+        <CTA isExternalLink color="blue" href="/">Customize Your Own</CTA>
+      </div>
+    </section>
+  </BackgroundImage>
+</Layout>

@@ -1,0 +1,42 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  title: string;
+  items: string[];
+  mdiIcon: string;
+  color: 'red' | 'green'
+}
+
+const { title, items, mdiIcon, color }: Props = Astro.props;
+
+const bgCss = color === 'red' ? 
+  'bg-red-700' : color === 'green' ?
+  'bg-green-700' : '';
+
+const iconCss = color === 'red' ? 
+  'text-red-500' : color === 'green' ?
+  'text-green-500' : '';
+---
+
+<div
+  class="bg-white p-3 rounded-2xl shadow-xl flex flex-col items-center"
+>
+  <h2
+    class=` px-4 py-2 ${bgCss} text-zinc-200 rounded-4xl -translate-y-[75%] min-w-50`
+  >
+    {title}
+  </h2>
+  <ul class="text-left flex flex-col gap-2 font-light">
+    {
+      items.map((item) => (
+        <li class="flex items-center gap-2">
+          <span class={`${iconCss}`}>
+            <Icon name={`mdi:${mdiIcon}`} />
+          </span>
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>

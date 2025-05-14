@@ -1,0 +1,21 @@
+---
+import Emoji from '@/modules/emojis/Emoji.astro';
+import type { EmojiType } from '@/modules/emojis/types'
+
+interface Props {
+  emoji: EmojiType
+  title: string
+}
+
+const { emoji, title }: Props = Astro.props;
+---
+
+
+<div class="flex flex-col lg:flex-row items-center text-lg text-center">
+  <div class="flex items-center gap-3 text-nowrap">
+    <!-- <span class="text-2xl">🏠</span> -->
+    <Emoji name={emoji} class="text-2xl"></Emoji>
+    <h2><b>{title}<span class="hidden lg:inline lg:pr-3">:</span></b></h2>
+  </div>
+  <slot />
+</div>

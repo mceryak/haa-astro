@@ -1,0 +1,21 @@
+---
+interface Props {
+  // id: string
+  title: string
+  noTopShadow?: boolean
+  titleTextColor?: string
+}
+
+const { title, noTopShadow=false, titleTextColor='' }: Props = Astro.props;
+---
+
+<div class="gap-5  pb-15">
+  <h1 class=`${titleTextColor} text-4xl font-semibold text-center pb-4 pt-10 w-full bg-gradient-to-b ${noTopShadow ? '' : 'from-black/30'} to-transparent`>{title}</h1> 
+  <div class=" p-5 w-full flex flex-col items-center ">
+    <div class="max-w-[85rem] flex flex-col items-center gap-10">
+      <slot />
+    </div>
+  </div>
+</div>
+
+

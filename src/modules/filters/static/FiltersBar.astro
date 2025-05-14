@@ -42,6 +42,6 @@ const lgGridCols = filters.length === 4
   document.getElementById('apply-filters-btn')?.addEventListener('click', () => {
     const selected = queryParams.get();
     const url = Object.keys(selected).reduce((acc, key) => `${acc}${key}=${encodeURIComponent(selected[key]?.join(',') ?? '')}&`, '?');
-    navigate('/homes' + url.slice(0, url.length - 1));
+    navigate('/homes/filter' + url.slice(0, url.length - 1));
   })
 </script>

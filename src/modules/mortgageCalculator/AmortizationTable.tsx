@@ -36,7 +36,7 @@ export default function AmortizationTable({ table, hasExtraPayment }: Props) {
   const smColumns = selectedOption === 'withExtra' && hasExtraPayment ? amortizationColumnsSmWithExtra : amortizationColumnsSmStandard;
   const mdColumns = hasExtraPayment ? amortizationColumnsMd : amortizationColumnsSmStandard;
   return (
-    <Accordion label="Amortization Table" bgColor="stone" >
+    <Accordion label="Amortization Table" bgColor="stone" noSectionBg>
       {hasExtraPayment && <select 
         className="w-full p-2 bg-slate-100 rounded-xl mb-2 md:hidden" 
         value={selectedOption} 
@@ -50,7 +50,7 @@ export default function AmortizationTable({ table, hasExtraPayment }: Props) {
       <div className="hidden md:block text-sm">
         <table className="">
           <thead>
-            {hasExtraPayment && <tr>
+            {hasExtraPayment && <tr className={``}>
               <th></th>
               <th colSpan={3} className="p-2 border-r-4 border-white text-center bg-gray-200">Original</th>
               <th colSpan={3} className="p-2 text-center bg-gray-200">With Extra Payment</th>
@@ -64,13 +64,13 @@ export default function AmortizationTable({ table, hasExtraPayment }: Props) {
               )}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-white">
             {table.map((rows, yearIdx) => <AmortizationTableYearRows key={yearIdx+1} year={yearIdx+1} columns={mdColumns} rows={rows}/>)}
           </tbody>
         </table>
       </div>
       <div className="md:hidden">
-        <table className="">
+        <table className="bg-white">
           <thead>
             <tr>
               {smColumns.map((col, idx) => 

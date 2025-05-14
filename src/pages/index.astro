@@ -13,7 +13,6 @@ import FeaturedHomes from "@/components/static/FeaturedHomes.astro";
 import BackgroundImage from "@/components/reusable/BackgroundImage.astro";
 import SectionContent from "@/components/reusable/SectionContent.astro";
 import SectionTitle from "@/components/reusable/section/SectionTitle.astro";
-import EdgeShadow from "@/components/reusable/EdgeShadow.astro";
 import Section from "@/components/reusable/section/Section.astro";
 import CTARow from "@/components/reusable/section/CTARow.astro";
 import CTA from "@/components/reusable/section/CTA.astro";
@@ -96,7 +95,7 @@ const filters = getHomeFilters(homes);
         </p>
 
         <CTARow>
-          <CTA href="/contact" fullWidth>Get in Touch</CTA>
+          <CTA href="/contact#contact-form" fullWidth>Get in Touch</CTA>
           <CTA href="/finance" color="green" fullWidth>Financing Options</CTA>
         </CTARow>
       </Section>
